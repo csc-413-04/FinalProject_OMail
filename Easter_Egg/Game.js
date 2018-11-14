@@ -3,7 +3,7 @@ var ctx = canvas.getContext("2d");
 var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 2;
-var dy = -2;
+var dy = -5;
 var ballRadius = 10;
 var paddleHeight = 10;
 var paddleWidth = 75;
@@ -11,8 +11,8 @@ var paddleX = (canvas.width-paddleWidth)/2
 var paddleY = canvas.height-paddleHeight;
 var rightPressed = false;
 var leftPressed = false;
-var brickRowCount = 3;
-var brickColumnCount = 5;
+var brickRowCount = 8;
+var brickColumnCount = 11;
 var brickWidth = 75;
 var brickHeight = 20;
 var brickPadding = 10;
@@ -63,7 +63,7 @@ function collisionDetection() {
       for(var r=0; r<brickRowCount; r++) {
         var b = bricks[c][r];
         if(b.status == 1) {
-          if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+          if(x > b.x && x < b.x+brickWidth && y+ballRadius > b.y && y-ballRadius < b.y+brickHeight) {
             dy = -dy;
             b.status = 0;
             score += 100;
@@ -99,7 +99,7 @@ function drawBall() {
 function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#A9A9A9";
     ctx.fill();
     ctx.closePath();
 }
@@ -150,7 +150,7 @@ function draw() {
             x = canvas.width/2;
             y = canvas.height-30;
             dx = 2;
-            dy = -2;
+            dy = -5;
             paddleX = (canvas.width-paddleWidth)/2;
       }
         }

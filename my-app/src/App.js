@@ -22,15 +22,15 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="header">O-mail</h1>
-          <div className="sidenav">
-
-                <button onClick={this.handleClick}>
+          <h1 className="red ui header">O-mail</h1>
+          <div class="sidenav">
+            <div className="fluid ui vertical buttons">
+              <button className="ui button" onClick={this.handleClick}>
               {this.state.isToggleOn ? 'Send': 'Message Sent!'}
               </button>
 
-            <button onClick={this.handleClick}>
-            {this.state.isToggleOn ? 'Inbox': 'Display Inbox'}</button>
+              <button className="fluid ui button" onClick={this.handleClick}>
+              {this.state.isToggleOn ? 'Inbox': 'Display Inbox'}</button>
 
             {/* <button onClick={dosomething}>
             Sent</button>
@@ -41,24 +41,51 @@ class App extends Component {
             <button onClick={dosomethingelse}>
             Trash</button>  */}
 
-            <a href="Inbox">Send</a>
-            <a href="Inbox">Inbox</a>
-            <a href="Sent">Sent</a>
-            <a href="Drafts">Drafts</a>
-            <a href="Trash">Trash</a>
-
-
+              <button href="Sent" className="fluid ui button">Sent</button>
+              <button href="Drafts" className="fluid ui button">Drafts</button>
+              <button href="Trash" className="fluid ui button">Trash</button>
+            </div>
           </div>
           <div className="main">
             <div className="search-container">
-              <input type="search" placeholder="Search" />
-              <button type="submit"><i className="fa fa-search"></i></button>
+              <div className="fluid ui action input">
+                  <input type="text" placeholder="Search..."></input>
+                  <button className="ui button">Search</button>
+              </div>
             </div>
             <div className="rows">
-              <ul>
-                <li>Jsamcam - This is an email subject line</li>
-                <li>GitHub  - Welcome to Github</li>
-              </ul>
+                <table className="ui fixed table">
+                    <thead>
+                    <tr>
+                        <th>From</th>
+                        <th>Subject</th>
+                        <th>Received</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>John</td>
+                        <td>Approved</td>
+                        <td>John is an interesting boy but sometimes you don't really have enough room to describe
+                            everything you'd like
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jamie</td>
+                        <td>Approved</td>
+                        <td>Jamie is a kind girl but sometimes you don't really have enough room to describe everything
+                            you'd like
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jill</td>
+                        <td>Denied</td>
+                        <td>Jill is an alright girl but sometimes you don't really have enough room to describe
+                            everything you'd like
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
           </div>

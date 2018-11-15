@@ -9,7 +9,7 @@
 	color:red;
 	background: #34435E;
 	margin:0px;
-	height: 50px;
+	height: 62px;
 	padding-left: 15px;
 }
 
@@ -25,37 +25,15 @@
     padding-top: 20px;
 }
 
-.sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 30px;
-    color: #FFFFFF;
-    display: block;
-}
-
-button {
-	padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 30px;
-    /* color: #FFFFFF; */
-    display: block;
-}
-.sidenav a:hover {
-    color: #52D1DC;
-}
-
 .main {
     margin-left: 160px; /* Same as the width of the sidenav */
     font-size: 28px; /* Increased text to enable scrolling */
-    padding: 0px 10px;
-}
 
+}
 
 .search-container{
 	height: 48px;
 	background: #BBBBBF;
-	margin-left: -10px;
-    margin-right: -10px;
 }
 
 .search-container input{
@@ -68,39 +46,10 @@ button {
   	font-size: 17px;
 }
 
-.search-container button {
-  	padding: 6px 10px;
-  	margin-top: 8px;
-  	margin-left:-10px;
-  	background: #F5F5F5;
-  	font-size: 17px;
-  	border: none;
-  	cursor: pointer;
-}
-
-.search-container button:hover {
-  background: #52D1DC;
-}
-
-.search-container .rows{
-	border:2px;
-	border:red;
-}
-
-.rows ul {
-	list-style-type: none;
-  	padding-left: 6px;
-   	margin-top:6px;
-  	margin-left:-4px;
-  	margin-right:-10px;
-  	background:#A9BCD0;
+/*adding a class to remove the bottom margin in the O-Mail header*/
+h1.red.ui.header {
+	margin-bottom: 0px;
+	padding-top: 15px;
 
 }
-
-.rows li{
-	font-size: 25px;
-	border-top: 1px solid #FFFFFF;
-}
-
-
 

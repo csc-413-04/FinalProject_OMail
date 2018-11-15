@@ -6,5 +6,6 @@ public class Mail {
     private String subject;
     private String mailBody;
     private String mailID;
+    private String timeDate;
 
 }

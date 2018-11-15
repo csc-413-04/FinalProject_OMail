@@ -39,4 +39,10 @@ public class ProcessNetwork {
         //the deleted mail is permanently deleted.
     }
 
+    public static void update() {
+        //method used to updte user's inbox
+        // make sure it is constantly running. Need to figure out how
+        // often it needs to run.
+    }
+
 }

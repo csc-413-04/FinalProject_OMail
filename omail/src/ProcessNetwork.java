@@ -1,13 +1,16 @@
+import com.google.gson.*;
 
 //These methods have a Database object as a parameter in order to access the methods in Database by
 //initializing the Database once.
 public class ProcessNetwork {
 
-    public static String sendMail(String mail, Database data) {
+    public static void sendMail(String mail, Database data) {
         //This method sends the mail and stores the mail in the database
         //use storeMail method from Database
         //returns mail data as a JSON
-        return null;
+        Gson ml = new Gson();
+        Mail send = ml.fromJson(mail, Mail.class);
+        data.storeMail(send);
     }
 
     public static String[] showInboxMail(String user, Database data) {
@@ -35,11 +38,17 @@ public class ProcessNetwork {
     public static void mailToTrash(String mail, Database data) {
         //this method moves a mail from the inbox or sent list to the trash list.
         //use moveMail(user, mail, trash) to move mail to trash.
+        Gson ml = new Gson();
+        Mail m = ml.fromJson(mail, Mail.class);
+        data.moveMail(m, "Trash");
     }
 
     public static void mailDeletion(String mail, Database data) {
         //this method is only usable from trashed mail
         //the deleted mail is permanently deleted.
+        Gson ml = new Gson();
+        Mail m = ml.fromJson(mail, Mail.class);
+        data.deleteMail(m);
     }
 
     public static void update() {
@@ -49,10 +58,28 @@ public class ProcessNetwork {
     }
 
     public static String createNewUser(String username, String password, Database data) {
+        password = maskPassword(password);
         if(data.createUser(username, password)) {
             return "okay";
         }
         return "Username already in use.";
+    }
+
+    public static String maskPassword(String pass) {
+        String mask = "";
+        String evn = "";
+        String odd = "";
+        pass += "omail";
+        for (int i = 0; i < pass.length(); i++) {
+            if (i % 2 == 0) {
+                evn += pass.charAt(i);
+            } else {
+                odd += pass.charAt(i);
+            }
+        }
+        mask = odd + evn;
+
+        return mask;
     }
 
 }

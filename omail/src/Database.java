@@ -33,23 +33,40 @@ public class Database {
         Document doc = new Document("Sender", mail.getSender())
                 .append("Recipient", mail.getRecipient()).append("Subject", mail.getSubject()).append("MailBody", mail.getMailBody()).append("Date", mail.getTimeDate()).append("IsUnread", mail.getIsUnread()).append("MailID",mail.getMailID());
         myCollectionMail.insertOne(doc);
+        //Also copy the contents of the mail into the sending user so user has copy of mail
     }
 
     public String[] showMail(String user, String mailType) {
         //This method returns the list of mails that is specified in mailType
         //if mailType == inbox return inbox mail list, if sent return sent mail list, if trash return trashed mail list
-        return null;
+        String[] x = new String[10000];
+        x[0] = "[]";
+        try {
+            Document search = myCollectionUsers.find(eq("User", user)).first();
+            Document t = (Document) search.get(mailType);
+            x[0] = t.values().toString();
+        } catch (Exception e) {
+            System.err.println("Error");
+        }
+        return x;
     }
 
-    public Boolean moveMail(String user, String mail, String destination) {
+    public Boolean moveMail(Mail mail, String destination) {
         //this method moves the mail from current list to destination list.
         //return true if successful, false otherwise.
+        if (destination.equals("Trash")) {
+            //search for where the mail is located by the mailID
+            //copy the contents of the mail
+            //delete the mail
+            //insert the copy into the trash
+        }
         return false;
     }
 
-    public Boolean deleteMail(String mail) {
+    public Boolean deleteMail(Mail mail) {
         //this method permanently deletes the mail from database
         //return true if successful, false otherwise.
+        //Mails can only be deleted if they are in trash
         return false;
     }
 

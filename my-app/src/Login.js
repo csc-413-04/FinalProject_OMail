@@ -29,9 +29,10 @@ export default class Login extends Component {
   render() {
     return (
       <div className="Login">
+        <h1 class="red ui header">O-mail</h1>
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
+            <ControlLabel>Email:</ControlLabel>
             <FormControl
               autoFocus
               type="email"
@@ -40,7 +41,7 @@ export default class Login extends Component {
             />
           </FormGroup>
           <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
+            <ControlLabel>Password:</ControlLabel>
             <FormControl
               value={this.state.password}
               onChange={this.handleChange}

@@ -1,5 +1,7 @@
 import com.google.gson.*;
 
+import java.util.ArrayList;
+
 //These methods have a Database object as a parameter in order to access the methods in Database by
 //initializing the Database once.
 public class ProcessNetwork {
@@ -13,19 +15,22 @@ public class ProcessNetwork {
         data.storeMail(send);
     }
 
-    public static String[] showInboxMail(String user, Database data) {
+    public static void sendM(String from, String to, String mail, Database data){
+        Mail m = new Mail(from, to, mail);
+        data.storeMail(m);
+    }
+
+    public static ArrayList<String> showInboxMail(String user, Database data) {
         //this method returns all the mails in an user's inbox
         //use showMail(user, inbox) to get inbox mails.
         //this is a lists of mail data in JSON
-        String[] rt = data.showMail(user, "Inbox");
-        return rt;
+        ArrayList<String> List = data.showM(user, "Recipient");
+        return List;
     }
 
-    public static String[] showSentMail(String user, Database data) {
-        //similar to showInboxMail() method, but with the sent mail.
-        //use showMail(user, sent) to get sent mails.
-        String[] rt = data.showMail(user, "Sent");
-        return rt;
+    public static ArrayList<String> showSentMail(String user, Database data) {
+        ArrayList<String> List = data.showM(user, "Sender");
+        return List;
     }
 
     public static String[] showTrash(String user, Database data) {

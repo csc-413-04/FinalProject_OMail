@@ -2,18 +2,25 @@ import static com.mongodb.client.model.Filters.*;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import javax.servlet.http.Cookie;
 import org.eclipse.jetty.server.Authentication;
 import java.util.*;
 import javax.print.Doc;
+import java.util.*;
 import java.util.ArrayList;
 
 public class Database {
     private  static Database instance = null;
 
-    private  Database() {}
+    private  Database() {
+        mongoClient = new MongoClient("localhost", 27017);
+        db = mongoClient.getDatabase("REST2");
+        myCollectionUsers = db.getCollection("users ");
+        myCollectionMail = db.getCollection("mail ");
+    }
 
     private MongoClient mongoClient;
     private MongoDatabase db;
@@ -26,6 +33,11 @@ public class Database {
         }
         return instance;
     }
+
+
+
+
+
 
     public void storeMail(Mail mail) {
         //this method stores the mail in database
@@ -49,6 +61,19 @@ public class Database {
             System.err.println("Error");
         }
         return x;
+    }
+
+    public ArrayList<String> showM(String user, String mailType) {
+        ArrayList<String> list=new ArrayList<String>();
+        MongoCursor<Document> cursor = myCollectionMail.find(eq(mailType, user)).iterator();
+        try {
+            while (cursor.hasNext()) {
+                list.add(cursor.next().toJson());
+            }
+        } finally {
+            cursor.close();
+        }
+        return list;
     }
 
     public Boolean moveMail(Mail mail, String destination) {

@@ -1,4 +1,5 @@
 
+
 public class Mail {
 
     private String sender;
@@ -8,6 +9,12 @@ public class Mail {
     private String mailID;
     private String timeDate;
     private boolean isUnread = true;
+
+    public Mail(String from, String to, String mail){
+        sender = from;
+        recipient = to;
+        mailBody = mail;
+    }
 
     public String getSender() {return sender;}
     public String getRecipient() {return recipient;}

@@ -29,7 +29,7 @@ export default class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <h1 class="red ui header">O-mail</h1>
+        <h1 className="red ui header"><i className="envelope open outline icon"></i>O-mail</h1>
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
             <ControlLabel>Email:</ControlLabel>
@@ -56,6 +56,9 @@ export default class Login extends Component {
           >
             Login
           </Button>
+        </form>
+        <form action="/CreateUser" class="inline">
+          <button class="float-center submit-button"> Create User</button>
         </form>
       </div>
     );

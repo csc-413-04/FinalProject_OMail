@@ -57,8 +57,8 @@ export default class Login extends Component {
             Login
           </Button>
         </form>
-        <form action="/CreateUser" class="inline">
-          <button class="float-center submit-button"> Create User</button>
+        <form name= "CreateUser" action="/CreateUser.js" class="inline">
+          <button class="float-center submit-button" type="submit"> Create User</button>
         </form>
       </div>
     );

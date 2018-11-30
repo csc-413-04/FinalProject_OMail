@@ -34,16 +34,25 @@ public class Database {
         return instance;
     }
 
+    public boolean loginCheck(String user, String pass){
 
-
-
-
+        try {
+            Document search = myCollectionUsers.find(eq("User", user)).first();
+            return (search.getString("User").equals(user)&&
+                    search.getString("Password").equals(pass));
+        }catch (Exception e)
+        {
+            return false;
+        }
+    }
 
     public void storeMail(Mail mail) {
         //this method stores the mail in database
         //return true if successful, false otherwise.
+//        Document doc = new Document("Sender", mail.getSender())
+//                .append("Recipient", mail.getRecipient()).append("Subject", mail.getSubject()).append("MailBody", mail.getMailBody()).append("Date", mail.getTimeDate()).append("IsUnread", mail.getIsUnread()).append("MailID",mail.getMailID());
         Document doc = new Document("Sender", mail.getSender())
-                .append("Recipient", mail.getRecipient()).append("Subject", mail.getSubject()).append("MailBody", mail.getMailBody()).append("Date", mail.getTimeDate()).append("IsUnread", mail.getIsUnread()).append("MailID",mail.getMailID());
+                .append("Recipient", mail.getRecipient()).append("MailBody", mail.getMailBody());
         myCollectionMail.insertOne(doc);
         //Also copy the contents of the mail into the sending user so user has copy of mail
     }
@@ -107,5 +116,4 @@ public class Database {
         }
         return false;
     }
-
 }

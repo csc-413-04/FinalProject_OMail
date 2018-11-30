@@ -3,7 +3,7 @@ import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import mail from "./mail";
 import Login from "./Login";
-import CreateUser from "./CreateUser"
+import CreateUser from "./CreateUser";
 
 
 

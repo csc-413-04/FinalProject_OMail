@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd867db1-8e0e-4f7c-ba25-a4efe0bafbd1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omail/src/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/omail/src/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omail/src/Mail.java" beforeDir="false" afterPath="$PROJECT_DIR$/omail/src/Mail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omail/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/omail/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omail/src/ProcessNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/omail/src/ProcessNetwork.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/omail/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/omail/src/Test.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,25 +26,25 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="iml" value="1" />
-          <entry key="java" value="7" />
+          <entry key="java" value="8" />
           <entry key="md" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="7" />
+          <entry key="JAVA" value="8" />
           <entry key="Markdown" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="103" />
+          <entry key="java" value="125" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="103" />
+          <entry key="JAVA" value="125" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -139,10 +135,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/omail/src/Mail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
+            <state relative-caret-position="408">
               <caret line="27" column="2" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
             </state>
           </provider>
@@ -163,8 +159,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/omail/src/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-170">
-              <caret line="17" column="32" lean-forward="true" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+            <state relative-caret-position="306">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/omail/src/Database.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="54" column="96" selection-start-line="54" selection-start-column="96" selection-end-line="54" selection-end-column="96" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -186,11 +194,11 @@
       <list>
         <option value="$PROJECT_DIR$/src/omail/main.java" />
         <option value="$PROJECT_DIR$/src/omail/Main.java" />
-        <option value="$PROJECT_DIR$/omail/src/Database.java" />
         <option value="$PROJECT_DIR$/omail/src/ProcessNetwork.java" />
         <option value="$PROJECT_DIR$/omail/src/Main.java" />
-        <option value="$PROJECT_DIR$/omail/src/Test.java" />
         <option value="$PROJECT_DIR$/omail/src/Mail.java" />
+        <option value="$PROJECT_DIR$/omail/src/Test.java" />
+        <option value="$PROJECT_DIR$/omail/src/Database.java" />
       </list>
     </option>
   </component>
@@ -272,7 +280,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543546726114" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543546952745" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../MongoDemo" />
     <property name="nodejs.jest.jest_package" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -376,7 +384,7 @@
       <workItem from="1542153117149" duration="800000" />
       <workItem from="1542165708900" duration="976000" />
       <workItem from="1542172620258" duration="985000" />
-      <workItem from="1543545993336" duration="732000" />
+      <workItem from="1543545993336" duration="956000" />
     </task>
     <servers />
   </component>
@@ -392,7 +400,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14472000" />
+    <option name="totallyTimeSpent" value="14696000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1292" height="732" extended-state="6" />
@@ -407,7 +415,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3283582" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3283582" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -416,7 +424,7 @@
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32885906" />
+      <window_info active="true" anchor="bottom" id="Messages" order="11" visible="true" weight="0.3283582" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -460,17 +468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/omail/src/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="75" column="20" lean-forward="true" selection-start-line="75" selection-start-column="20" selection-end-line="75" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2422#2430#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -496,13 +493,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/omail/src/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-170">
-          <caret line="17" column="32" lean-forward="true" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/omail/src/ProcessNetwork.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -515,8 +505,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/omail/src/Mail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
+        <state relative-caret-position="408">
           <caret line="27" column="2" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omail/src/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/omail/src/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="54" column="96" selection-start-line="54" selection-start-column="96" selection-end-line="54" selection-end-column="96" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -6,7 +6,7 @@ public class Test {
         Database d = Database.getInstance();
 
 
-/*
+
         System.out.println(ProcessNetwork.createNewUser("A", "1234", d));
         System.out.println(ProcessNetwork.createNewUser("B", "1234", d));
         System.out.println(ProcessNetwork.createNewUser("C", "1234", d));
@@ -19,7 +19,7 @@ public class Test {
         System.out.println(send);
 //        ProcessNetwork.sendMail("hello world", d);
 */
-        /*
+
         ProcessNetwork.sendM("A", "B", "Hello World", d );
         ProcessNetwork.sendM("A", "C", "I like Apple", d);
         ProcessNetwork.sendM("A", "C", "I like Orange", d);

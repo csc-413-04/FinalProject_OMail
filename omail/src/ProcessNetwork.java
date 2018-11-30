@@ -63,7 +63,7 @@ public class ProcessNetwork {
     }
 
     public static String createNewUser(String username, String password, Database data) {
-        password = maskPassword(password);
+//        password = maskPassword(password);
         if(data.createUser(username, password)) {
             return "okay";
         }
@@ -83,8 +83,12 @@ public class ProcessNetwork {
             }
         }
         mask = odd + evn;
-
         return mask;
+    }
+
+    public static boolean login(String user, String pass, Database data){
+
+        return data.loginCheck(user, pass);
     }
 
 }

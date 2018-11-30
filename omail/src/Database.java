@@ -34,10 +34,17 @@ public class Database {
         return instance;
     }
 
+    public boolean loginCheck(String user, String pass){
 
-
-
-
+        try {
+            Document search = myCollectionUsers.find(eq("User", user)).first();
+            return (search.getString("User").equals(user)&&
+                    search.getString("Password").equals(pass));
+        }catch (Exception e)
+        {
+            return false;
+        }
+    }
 
     public void storeMail(Mail mail) {
         //this method stores the mail in database
@@ -107,5 +114,4 @@ public class Database {
         }
         return false;
     }
-
 }

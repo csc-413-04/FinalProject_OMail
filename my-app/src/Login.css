@@ -21,5 +21,9 @@
       width: 30%;
       position: sticky;
     }
+
+    .Login button {
+      text-align: center;
+    }
   
   }

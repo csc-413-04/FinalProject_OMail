@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import axios from 'axios';
 import "./Login.css";
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -16,6 +18,31 @@ export default class Login extends Component {
     return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
+  sendSomeData = (e) => {
+    axios({
+        method : 'POST',
+        url: '/create',
+        data: {
+            user: this.state.email,
+            password: this.state.password,
+        }
+    })
+    .then((res)=> {
+        console.log(res)
+    }).catch((e) =>{
+        console.log(e);
+    });
+    this.setState({
+        email: '',
+        password: ''
+    })
+}
+
+  displayLog = (e) =>{
+    console.log(this.state.email);
+    console.log(this.state.password);
+  }
+
   handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value
@@ -26,16 +53,28 @@ export default class Login extends Component {
     event.preventDefault();
   }
 
+  updateEmail(e){
+        this.setState({
+            email: e.target.value,
+        })
+    }
+    
+  updatePass(e){
+      this.setState({
+          password: e.target.value,
+      })
+  }
+
   render() {
     return (
       <div className="Login">
-        <h1 className="red ui header"><i className="envelope open outline icon"></i>O-mail</h1>
+        <h1 class="red ui header">O-mail</h1>
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
             <ControlLabel>Email:</ControlLabel>
             <FormControl
               autoFocus
-              type="email"
+              type="text"
               value={this.state.email}
               onChange={this.handleChange}
             />
@@ -53,12 +92,10 @@ export default class Login extends Component {
             bsSize="large"
             disabled={!this.validateForm()}
             type="submit"
+            onClick={this.sendSomeData}
           >
             Login
           </Button>
-        </form>
-        <form action="/CreateUser" class="inline">
-          <button class="float-center submit-button" type="submit"> Create User</button>
         </form>
       </div>
     );

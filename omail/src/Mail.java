@@ -4,7 +4,7 @@ public class Mail {
   private String recipient;
   //    private String subject;
   private String mailBody;
-  //    private String mailID;
+  private String mailID;
   private String timeDate;
   //    private boolean isUnread = true;
   private boolean trash = false;
@@ -28,13 +28,14 @@ public class Mail {
     return mailBody;
   }
 
-  //    public String getMailID() {return mailID;}
+  public String getMailID() {return mailID;}
   public String getTimeDate() {
     return timeDate;
   }
-//    public boolean getIsUnread() {return isUnread;}
+//
+     public void setTimeDate(String date) {this.timeDate = date;}
 
-  //    public void setMailID(String id){this.mailID = id;}
+     public void setMailID(String id){this.mailID = id;}
 //    public void mailRead(){this.isUnread = false;}
   public boolean isTrash() {
     return trash;

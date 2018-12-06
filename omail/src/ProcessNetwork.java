@@ -1,22 +1,30 @@
 import com.google.gson.*;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 //These methods have a Database object as a parameter in order to access the methods in Database by
 //initializing the Database once.
 public class ProcessNetwork {
 
     public static void sendMail(String mail, Database data) {
-        //This method sends the mail and stores the mail in the database
+       /*  //This method sends the mail and stores the mail in the database
         //use storeMail method from Database
         //returns mail data as a JSON
         Gson ml = new Gson();
         Mail send = ml.fromJson(mail, Mail.class);
         data.storeMail(send);
+        /**/
     }
 
     public static void sendM(String from, String to, String mail, Database data){
         Mail m = new Mail(from, to, mail);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        m.setTimeDate(dtf.format(now));
+        String id = Long.toString(System.nanoTime());
+        m.setMailID(id);
         data.storeMail(m);
     }
 

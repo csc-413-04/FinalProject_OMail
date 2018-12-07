@@ -10,7 +10,8 @@ export default class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      type: ""
     };
   }
 
@@ -18,27 +19,46 @@ export default class Login extends Component {
     return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
-  sendSomeData = (e) => {
+  createUser = (e) => {
     axios({
-        method : 'POST',
-        url: '/create',
-        data: {
-            user: this.state.email,
-            password: this.state.password,
-        }
+      method: 'POST',
+      url: '/create',
+      data: {
+        user: this.state.email,
+        password: this.state.password,
+      }
     })
-    .then((res)=> {
+      .then((res) => {
         console.log(res)
-    }).catch((e) =>{
+      }).catch((e) => {
         console.log(e);
-    });
+      });
     this.setState({
-        email: '',
-        password: ''
+      email: '',
+      password: ''
     })
-}
+  }
+  loginCheck = (e) => {
+    axios({
+      method: 'POST',
+      url: '/create',
+      data: {
+        user: this.state.email,
+        password: this.state.password,
+      }
+    })
+      .then((res) => {
+        console.log(res)
+      }).catch((e) => {
+        console.log(e);
+      });
+    this.setState({
+      email: '',
+      password: ''
+    })
+  }
 
-  displayLog = (e) =>{
+  displayLog = (e) => {
     console.log(this.state.email);
     console.log(this.state.password);
   }
@@ -53,22 +73,10 @@ export default class Login extends Component {
     event.preventDefault();
   }
 
-  updateEmail(e){
-        this.setState({
-            email: e.target.value,
-        })
-    }
-    
-  updatePass(e){
-      this.setState({
-          password: e.target.value,
-      })
-  }
-
   render() {
     return (
       <div className="Login">
-        <h1 class="red ui header">O-mail</h1>
+        <h1 className="red ui header">O-mail</h1>
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
             <ControlLabel>Email:</ControlLabel>
@@ -92,9 +100,18 @@ export default class Login extends Component {
             bsSize="large"
             disabled={!this.validateForm()}
             type="submit"
-            onClick={this.sendSomeData}
+            onClick={this.loginCheck}
           >
             Login
+          </Button>
+          <Button
+            block
+            bsSize="large"
+            disabled={!this.validateForm()}
+            type="submit"
+            onClick={this.createUser}
+          >
+            Create
           </Button>
         </form>
       </div>

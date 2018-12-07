@@ -11,7 +11,7 @@ export default class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      type: ""
+      type: "",
     };
   }
 
@@ -57,7 +57,7 @@ export default class Login extends Component {
       });
     this.setState({
       email: '',
-      password: ''
+      password: '',
     })
   }
 
@@ -79,7 +79,7 @@ export default class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <h1 className="red ui header">O-mail</h1>
+        <h1 className="red ui header"><i className="envelope open outline icon"></i>O-mail</h1>
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
             <ControlLabel>Email:</ControlLabel>
@@ -114,7 +114,7 @@ export default class Login extends Component {
             type="submit"
             onClick={this.createUser}
           >
-            Create
+            Create User
           </Button>
         </form>
       </div>

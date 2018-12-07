@@ -1,6 +1,10 @@
 import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import spark.Request;
 import spark.Response;
+
+import javax.xml.crypto.Data;
 
 import static spark.Spark.*;
 
@@ -36,7 +40,6 @@ public class Main {
             String body = req.body();
             return ProcessNetwork.login(getString(body,"user"),getString(body,"password"),d);
         });
-
     }
 
 

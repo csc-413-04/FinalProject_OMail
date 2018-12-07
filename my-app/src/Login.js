@@ -10,7 +10,8 @@ export default class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      type: ""
     };
   }
 
@@ -18,48 +19,49 @@ export default class Login extends Component {
     return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
-  sendSomeData = (e) => {
+  createUser = (e) => {
     axios({
-        method : 'POST',
-        url: '/login',
-        data: {
-            user: this.state.email,
-            password: this.state.password,
-        }
-    })
-    .then((res)=> {
-      console.log(res);
-      if(res.data) {
-        window.location.href = "/logged";
-      }
-    }).catch((e) =>{
-        console.log(e);
-    });
-    this.setState({
-        email: '',
-        password: ''
-    })
-}
-createUser = (e) => {
-  axios({
-      method : 'POST',
+      method: 'POST',
       url: '/create',
       data: {
-          user: this.state.email,
-          password: this.state.password,
+        user: this.state.email,
+        password: this.state.password,
       }
-  })
-  .then((res)=> {
-      console.log(res)
-  }).catch((e) =>{
-      console.log(e);
-  });
-  this.setState({
+    })
+      .then((res) => {
+        console.log(res)
+      }).catch((e) => {
+        console.log(e);
+      });
+    this.setState({
       email: '',
       password: ''
-  })
-}
-  displayLog = (e) =>{
+    })
+  }
+  loginCheck = (e) => {
+    axios({
+      method: 'POST',
+      url: '/create',
+      data: {
+        user: this.state.email,
+        password: this.state.password,
+      }
+    })
+      .then((res) => {
+        console.log(res);
+        if(res.data) {
+          window.location.href = "/logged";
+        }
+      }).catch((e) => {
+        console.log(e);
+      });
+    this.setState({
+      email: '',
+      password: ''
+    })
+  }
+
+  displayLog = (e) => {
     console.log(this.state.email);
     console.log(this.state.password);
   }
@@ -74,11 +76,10 @@ createUser = (e) => {
     event.preventDefault();
   }
 
-
   render() {
     return (
       <div className="Login">
-        <h1 class="red ui header">O-mail</h1>
+        <h1 className="red ui header">O-mail</h1>
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
             <ControlLabel>Email:</ControlLabel>
@@ -102,7 +103,7 @@ createUser = (e) => {
             bsSize="large"
             disabled={!this.validateForm()}
             type="submit"
-            onClick={this.sendSomeData}
+            onClick={this.loginCheck}
           >
             Login
           </Button>
@@ -113,7 +114,7 @@ createUser = (e) => {
             type="submit"
             onClick={this.createUser}
           >
-            Create Account
+            Create
           </Button>
         </form>
       </div>

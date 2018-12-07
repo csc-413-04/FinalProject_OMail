@@ -21,7 +21,7 @@ class  mail extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <h1 className="red ui header"><i className="envelope open outline icon"></i>O-mail</h1>
+                    <h1 className="red ui header"><i className="envelope open outline icon"></i>O-mail</h1>,
                     <div class="sidenav">
                         <div className="fluid ui large vertical buttons">
                             <button className="ui primary button" onClick={this.handleClick}><i className="envelope icon"></i>

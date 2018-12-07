@@ -1,5 +1,9 @@
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import spark.Request;
 import spark.Response;
+
+import javax.xml.crypto.Data;
 
 import static spark.Spark.*;
 
@@ -24,16 +28,24 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
+        Database d = Database.getInstance();
         port(1234);
 
         post("/create", (req, res) -> {
             String body = req.body();
-            System.out.println(body);
-            return "OK";
+            return ProcessNetwork.createNewUser(getString(body,"user"),getString(body,"password"),d);
         });
+        post("/login", (req, res) -> {
+            String body = req.body();
+            return ProcessNetwork.login(getString(body,"user"),getString(body,"password"),d);
+        });
+    }
 
-
+    public static String getString(String string, String type)
+    {
+        Gson gson = new Gson();
+        JsonObject job = gson.fromJson(string, JsonObject.class);
+        return job.get(type).toString();
     }
 
 }

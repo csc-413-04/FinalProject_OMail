@@ -41,7 +41,7 @@ export default class Login extends Component {
   loginCheck = (e) => {
     axios({
       method: 'POST',
-      url: '/create',
+      url: '/login',
       data: {
         user: this.state.email,
         password: this.state.password,

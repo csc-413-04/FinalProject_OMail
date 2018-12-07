@@ -21,14 +21,17 @@ export default class Login extends Component {
   sendSomeData = (e) => {
     axios({
         method : 'POST',
-        url: '/create',
+        url: '/login',
         data: {
             user: this.state.email,
             password: this.state.password,
         }
     })
     .then((res)=> {
-        console.log(res)
+      console.log(res);
+      if(res.data) {
+        window.location.href = "/logged";
+      }
     }).catch((e) =>{
         console.log(e);
     });
@@ -37,7 +40,25 @@ export default class Login extends Component {
         password: ''
     })
 }
-
+createUser = (e) => {
+  axios({
+      method : 'POST',
+      url: '/create',
+      data: {
+          user: this.state.email,
+          password: this.state.password,
+      }
+  })
+  .then((res)=> {
+      console.log(res)
+  }).catch((e) =>{
+      console.log(e);
+  });
+  this.setState({
+      email: '',
+      password: ''
+  })
+}
   displayLog = (e) =>{
     console.log(this.state.email);
     console.log(this.state.password);
@@ -53,17 +74,6 @@ export default class Login extends Component {
     event.preventDefault();
   }
 
-  updateEmail(e){
-        this.setState({
-            email: e.target.value,
-        })
-    }
-    
-  updatePass(e){
-      this.setState({
-          password: e.target.value,
-      })
-  }
 
   render() {
     return (
@@ -95,6 +105,15 @@ export default class Login extends Component {
             onClick={this.sendSomeData}
           >
             Login
+          </Button>
+          <Button
+            block
+            bsSize="large"
+            disabled={!this.validateForm()}
+            type="submit"
+            onClick={this.createUser}
+          >
+            Create Account
           </Button>
         </form>
       </div>

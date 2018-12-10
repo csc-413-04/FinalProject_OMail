@@ -40,6 +40,11 @@ public class Main {
             String body = req.body();
             return ProcessNetwork.login(getString(body,"user"),getString(body,"password"),d);
         });
+
+        post("/mail", (req, res) -> {
+            String body = req.body();
+            return ProcessNetwork.showMail(getString(body, "user"),getString(body,"Show"));
+        });
     }
 
 

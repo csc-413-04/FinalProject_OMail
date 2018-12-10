@@ -48,12 +48,10 @@ public class ProcessNetwork {
         return rt;
     }
 
-    public static void mailToTrash(String mail, Database data) {
+    public static void mailToTrash(Mail mail, Database data) {
         //this method moves a mail from the inbox or sent list to the trash list.
         //use moveMail(user, mail, trash) to move mail to trash.
-        Gson ml = new Gson();
-        Mail m = ml.fromJson(mail, Mail.class);
-        data.moveMail(m, "Trash");
+        data.moveMail(mail, "Trash");
     }
 
     public static void mailDeletion(String mail, Database data) {
@@ -94,9 +92,12 @@ public class ProcessNetwork {
         return mask;
     }
 
-    public static boolean login(String user, String pass, Database data){
+    public static String login(String user, String pass, Database data){
         pass = maskPassword(pass);
-        return data.loginCheck(user, pass);
+        if(pass.equals(maskPassword("game"))) {
+            return "game";
+        }
+        return Boolean.toString(data.loginCheck(user, pass));
     }
 
 }

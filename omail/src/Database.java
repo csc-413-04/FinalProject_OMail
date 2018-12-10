@@ -79,17 +79,15 @@ public class Database {
     //this method moves the mail from current list to destination list.
     //return true if successful, false otherwise.\
     //TODO: Find better matching strategy
-    try {
-      Document search = myCollectionMail.find(eq("MailBody", mail.getMailBody())).first();
-    } catch (Exception e) {
-      return false;
-    }
-    if (destination.equals("Trash")) {
-      //search for where the mail is located by the mailID
-      //copy the contents of the mail
-      //delete the mail
-      //insert the copy into the trash
-      mail.moveToTrash();
+    if(deleteMail(mail)) {
+      if (destination.equals("Trash")) {
+        //search for where the mail is located by the mailID
+        //copy the contents of the mail
+        //delete the mail
+        //insert the copy into the trash
+        mail.moveToTrash();
+        storeMail(mail);
+      }
     }
     return true;
   }
@@ -101,15 +99,13 @@ public class Database {
     //TODO: Find better matching strategy
     Document search;
     try {
-      search = myCollectionMail.find(eq("MailBody", mail.getMailBody())).first();
+      search = myCollectionMail.find(eq("MailID", mail.getMailID())).first();
     } catch (Exception e) {
       return false;
     }
-    if(mail.isTrash()){
       myCollectionMail.deleteOne(search);
-    }
 
-    return false;
+    return true;
   }
 
   public boolean createUser(String username, String password) {

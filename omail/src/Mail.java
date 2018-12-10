@@ -1,48 +1,48 @@
 public class Mail {
 
-  private String sender;
-  private String recipient;
+  private String Sender;
+  private String Recipient;
   //    private String subject;
-  private String mailBody;
-  private String mailID;
-  private String timeDate;
+  private String MailBody;
+  private String Date;
+  private String MailID;
   //    private boolean isUnread = true;
-  private boolean trash = false;
+  private boolean Trash = false;
 
   public Mail(String from, String to, String mail) {
-    sender = from;
-    recipient = to;
-    mailBody = mail;
+    Sender = from;
+    Recipient = to;
+    MailBody = mail;
   }
 
   public String getSender() {
-    return sender;
+    return Sender;
   }
 
   public String getRecipient() {
-    return recipient;
+    return Recipient;
   }
 
   //    public String getSubject() {return subject;}
   public String getMailBody() {
-    return mailBody;
+    return MailBody;
   }
 
-  public String getMailID() {return mailID;}
+  public String getMailID() {return MailID;}
   public String getTimeDate() {
-    return timeDate;
+    return Date;
   }
 //
-     public void setTimeDate(String date) {this.timeDate = date;}
+     public void setTimeDate(String date) {this.Date = date;}
 
-     public void setMailID(String id){this.mailID = id;}
+     public void setMailID(String id){this.MailID = id;}
 //    public void mailRead(){this.isUnread = false;}
   public boolean isTrash() {
-    return trash;
+    return Trash;
   }
 
   public void moveToTrash() {
-    trash = true;
+    Trash = true;
   }
 
 

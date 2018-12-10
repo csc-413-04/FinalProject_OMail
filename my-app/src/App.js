@@ -4,8 +4,7 @@ import './App.css';
 import mail from "./mail";
 import Login from "./Login";
 import sendmail from "./sendmail";
-
-
+import {Provider} from 'react-redux';
 
 class App extends Component {
 
@@ -27,4 +26,8 @@ class App extends Component {
     }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e5d61be478bb04f591b14a788c5a01d06beb8da5
 export default App;

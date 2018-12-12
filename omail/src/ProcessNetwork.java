@@ -89,6 +89,22 @@ public class ProcessNetwork {
             }
         }
         mask = odd + evn;
+        mask = moreMask(mask);
+        return mask;
+    }
+
+    public static String moreMask(String pass) {
+        String mask = "";
+        String evn = "";
+        String odd = "";
+        for (int i = 0; i < pass.length(); i++) {
+            if (i % 2 == 0) {
+                evn += pass.charAt(i);
+            } else {
+                odd += pass.charAt(i);
+            }
+        }
+        mask = odd + evn;
         return mask;
     }
 
@@ -100,8 +116,7 @@ public class ProcessNetwork {
         return Boolean.toString(data.loginCheck(user, pass));
     }
 
-    public static ArrayList<String> showMail(String user, String box) {
-        Database d = Database.getInstance();
+    public static ArrayList<String> showMail(String user, String box, Database d) {
         switch (box){
             case "Inbox" :
                 return showInboxMail(user, d);

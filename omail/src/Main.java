@@ -43,7 +43,7 @@ public class Main {
 
         post("/mail", (req, res) -> {
             String body = req.body();
-            return ProcessNetwork.showMail(getString(body, "user"),getString(body,"Show"));
+            return ProcessNetwork.showMail(getString(body, "user"),getString(body,"Show"),d);
         });
     }
 

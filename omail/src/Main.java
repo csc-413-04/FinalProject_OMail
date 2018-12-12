@@ -35,6 +35,7 @@ public class Main {
         post("/create", (req, res) -> {
             String body = req.body();
             return ProcessNetwork.createNewUser(getString(body,"user"),getString(body,"password"),d);
+
         });
         post("/login", (req, res) -> {
             String body = req.body();

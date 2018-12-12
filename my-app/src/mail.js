@@ -4,25 +4,17 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import MailPreviewList from "./mailPreviewList";
 
+class Message extends Component{
+    render(){
+        return(
+            <div className="message">
+                {this.props.content}
+            </div>
+        );
+    }
+}
 
 class Mail extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isToggleOn: true,
-        };
-
-
-        // This binding is necessary to make `this` work in the callback
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        this.setState(state => ({
-            isToggleOn: !state.isToggleOn
-        }));
-
-    }
 
     render() {
 
@@ -32,14 +24,11 @@ class Mail extends Component {
                     <h1 className="red ui header"><i className="envelope open outline icon"></i>O-mail</h1>,
                     <div class="sidenav">
                         <div className="fluid ui large vertical buttons">
-                            <button className="ui primary button" onClick={this.handleClick}><i
-                                className="envelope icon"></i>
-                                {this.state.isToggleOn ? 'Send' : 'Message Sent!'}
-                            </button>
+                            <button className="ui primary button" ><i
+                                className="envelope icon"></i>Inbox</button>
 
-                            <button className="fluid ui button" onClick={this.handleClick}><i
-                                className="inbox icon"></i>
-                                {this.state.isToggleOn ? 'Inbox' : 'Display Inbox'}</button>
+                            <button className="fluid ui button" ><i
+                                className="inbox icon"></i>Sent</button>
 
 
                             <button href="Sent" className="fluid ui button"><i className="paper plane icon"></i>Sent

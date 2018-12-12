@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import {Provider} from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import store from './redux/store.js'
+import store from './redux/store.js';
+import {importMessage} from "./redux/actions";
 
 const websocket = new WebSocket('ws://localhost:1234/ws');
 websocket.onopen = () => {

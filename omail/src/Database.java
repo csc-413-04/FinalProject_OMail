@@ -1,5 +1,6 @@
 import static com.mongodb.client.model.Filters.*;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -63,11 +64,29 @@ public class Database {
   }
 
   public ArrayList<String> showM(String user, String mailType) {
-    ArrayList<String> list = new ArrayList<String>();
+
     MongoCursor<Document> cursor = myCollectionMail.find(eq(mailType, user)).iterator();
+    ArrayList<String> list = new ArrayList<String>();
+    BasicDBObject filter = new BasicDBObject();
+
+    if(mailType.equals("Recipient")) {
+      filter.append("Recipient", user);
+      filter.append("Trash","false");
+      cursor = myCollectionMail.find(filter).iterator();
+    } else if(mailType.equals("Sender")){
+      filter.append("Sender", user);
+      filter.append("Trash","false");
+      cursor = myCollectionMail.find(filter).iterator();
+    } else if(mailType.equals("Trash")){
+      filter.append("Recipient", user);
+      filter.append("Trash","true");
+      cursor = myCollectionMail.find(filter).iterator();
+    }
+
     try {
       while (cursor.hasNext()) {
         list.add(cursor.next().toJson());
+
       }
     } finally {
       cursor.close();

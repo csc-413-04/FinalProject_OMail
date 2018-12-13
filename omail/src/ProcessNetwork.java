@@ -44,7 +44,7 @@ public class ProcessNetwork {
     public static ArrayList<String> showTrash(String user, Database data) {
         //similar to showInboxMail() method, but with the trashed mail.
         //use showMail(user, trash) to get trashed mails.
-        ArrayList<String> List = data.showM(user, "Recipient"); //Will also show inbox
+        ArrayList<String> List = data.showM(user, "Trash");
         return List;
     }
 
@@ -108,6 +108,7 @@ public class ProcessNetwork {
             case "Sent" :
                 return showSentMail(user, d);
             case "Trash":
+                //as of now showTrash only shows recived messages in trash
                 return showTrash(user, d);
                 default:
                     ArrayList<String> def = new ArrayList<String>();

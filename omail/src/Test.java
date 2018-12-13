@@ -14,11 +14,15 @@ public class Test {
         //System.out.println(tar.getMailID());
         //ProcessNetwork.mailToTrash(tar, d);
         //System.out.println(ProcessNetwork.maskPassword(w));
-        long var = System.nanoTime();
-        while (var > 1000) {
-            var /= 100;
-        }
-        ProcessNetwork.sendM("cola", "cc", "ha" + var, d);
-        System.out.println(ProcessNetwork.showMail("cc", "Inbox"));
+        String s = "\"d\"";
+        s = s.replace("\"","");
+
+        System.out.println(s);
+
+        /*ArrayList<String> a = ProcessNetwork.showMail("b", "Inbox");
+        for (String b : a)
+        {
+            System.out.println(b);
+        }*/
     }
 }

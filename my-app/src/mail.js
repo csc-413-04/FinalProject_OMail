@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import axios from 'axios';
 import MailPreviewList from "./mailPreviewList";
 
 class Message extends Component{
@@ -14,7 +15,38 @@ class Message extends Component{
     }
 }
 
+
+
+
 class Mail extends Component {
+//    constructor(props) {
+//        super(props);
+//    
+//        this.state = {
+//          email: "",
+//          type: "", (it can be Inbox, Sent or Trash (trash isnt working))
+//       };
+//      }
+    getInbox = (e) => {
+        axios({
+          method: 'POST',
+          url: '/mail',
+          data: {
+        // Hard coding the data.
+            user: "b",
+            Show: "Inbox",
+          }
+        })
+          .then((res) => {
+            console.log(res)
+          }).catch((e) => {
+            console.log(e);
+          });
+        this.setState({
+          email: '',
+          password: ''
+        })
+      }
 
     render() {
 
@@ -24,14 +56,14 @@ class Mail extends Component {
                     <h1 className="red ui header"><i className="envelope open outline icon"></i>O-mail</h1>,
                     <div class="sidenav">
                         <div className="fluid ui large vertical buttons">
-                            <button className="ui primary button" ><i
+                            <button className="ui primary button" onClick={this.getInbox} ><i
                                 className="envelope icon"></i>Inbox</button>
 
                             <button className="fluid ui button" ><i
-                                className="inbox icon"></i>Sent</button>
+                                className="inbox icon"></i>Sent Mail</button>
 
 
-                            <button href="Sent" className="fluid ui button"><i className="paper plane icon"></i>Sent
+                            <button href="Sent" className="fluid ui button"><i className="paper plane icon"></i>Compose
                             </button>
                             <button href="Drafts" className="fluid ui button"><i className="file icon"></i>Drafts
                             </button>

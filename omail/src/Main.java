@@ -8,6 +8,7 @@ import javax.xml.crypto.Data;
 
 import static spark.Spark.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
@@ -35,8 +36,8 @@ public class Main {
         post("/create", (req, res) -> {
             String body = req.body();
             return ProcessNetwork.createNewUser(getString(body,"user"),getString(body,"password"),d);
-
         });
+
         post("/login", (req, res) -> {
             String body = req.body();
             return ProcessNetwork.login(getString(body,"user"),getString(body,"password"),d);
@@ -54,7 +55,8 @@ public class Main {
     {
         Gson gson = new Gson();
         JsonObject job = gson.fromJson(string, JsonObject.class);
-        return job.get(type).toString();
+
+        return job.get(type).toString().replace("\"","");
     }
 
 }

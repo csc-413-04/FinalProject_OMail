@@ -21,5 +21,15 @@ public class Test {
         //}
         //ProcessNetwork.sendM("cola", "cc", "ha" + var, d);
         System.out.println(w);
+        String s = "\"d\"";
+        s = s.replace("\"","");
+
+        System.out.println(s);
+
+        /*ArrayList<String> a = ProcessNetwork.showMail("b", "Inbox");
+        for (String b : a)
+        {
+            System.out.println(b);
+        }*/
     }
 }

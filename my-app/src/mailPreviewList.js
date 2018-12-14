@@ -12,7 +12,7 @@ class MailPreviewList extends Component{
                 onClick = {() => this.props.selectEmail(emailPreview)}>
                 <td>{emailPreview.Sender}</td>
                 <td>{emailPreview.Recipient}</td>
-                <td>{emailPreview.Mailbody}
+                <td>{emailPreview.MailBody}
                 </td>
             </tr>
             );

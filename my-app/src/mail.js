@@ -6,7 +6,7 @@ import MailPreviewList from './mailPreviewList';
 import {selectEmail} from "./redux/action";
 import Modal from './modal';
 import axios from 'axios';
-import MailPreviewList from "./mailPreviewList";
+
 
 class Message extends Component{
     render(){

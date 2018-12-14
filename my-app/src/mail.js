@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import './App.css'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import MailPreviewList from "./mailPreviewList";
+import MailPreviewList from './mailPreviewList';
+import {selectEmail} from "./redux/action";
+import Modal from './modal';
 
 
 class Mail extends Component {
@@ -30,7 +32,7 @@ class Mail extends Component {
             <div className="App">
                 <header className="App-header">
                     <h1 className="red ui header"><i className="envelope open outline icon"></i>O-mail</h1>,
-                    <div class="sidenav">
+                    <div className="sidenav">
                         <div className="fluid ui large vertical buttons">
                             <button className="ui primary button" onClick={this.handleClick}><i
                                 className="envelope icon"></i>
@@ -46,7 +48,7 @@ class Mail extends Component {
                             </button>
                             <button href="Drafts" className="fluid ui button"><i className="file icon"></i>Drafts
                             </button>
-                            <button href="Trash" className="fluid ui button"><i class="trash icon"></i>Trash</button>
+                            <button href="Trash" className="fluid ui button"><i className="trash icon"></i>Trash</button>
                         </div>
                     </div>
                     <div className="main">
@@ -62,11 +64,16 @@ class Mail extends Component {
                                 <tr>
                                     <th>From</th>
                                     <th>Subject</th>
-                                    <th>Received</th>
+                                    <th>Preview</th>
                                 </tr>
                                 </thead>
                                 <MailPreviewList />
                             </table>
+                            <Modal>
+                                <h1> Send Email to:</h1>
+                                <p>Dear Sir, please stop replace the milk when you finish it.</p>
+
+                            </Modal>
                         </div>
                     </div>
                 </header>
@@ -74,4 +81,5 @@ class Mail extends Component {
         );
     }
 }
+
 export default Mail;

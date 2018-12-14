@@ -6,13 +6,13 @@ import {selectEmail} from "./redux/action";
 class MailPreviewList extends Component{
 
     createListItems(){
-        return this.props.datamail.map((emailPreview) => {
+        return this.props.mail.map((emailPreview) => {
             return(
             <tr key={emailPreview.id}
                 onClick = {() => this.props.selectEmail(emailPreview)}>
-                <td>{emailPreview.sentFrom}</td>
-                <td>{emailPreview.subject}</td>
-                <td>{emailPreview.preview}
+                <td>{emailPreview.Sender}</td>
+                <td>{emailPreview.Recipient}</td>
+                <td>{emailPreview.Mailbody}
                 </td>
             </tr>
             );
@@ -34,7 +34,7 @@ class MailPreviewList extends Component{
 function mapStateToProps(state){
     return{
         mail : state.EmailList,
-        datamail: state.DataEmail
+//       datamail: state.DataEmail
     };
 
 }

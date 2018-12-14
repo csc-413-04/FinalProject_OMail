@@ -3,7 +3,7 @@ import './App.css'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import MailPreviewList from './mailPreviewList';
-import {selectEmail} from "./redux/action";
+import {importEmails} from "./redux/action";
 import Modal from './modal';
 import axios from 'axios';
 
@@ -36,13 +36,15 @@ class Mail extends Component {
           url: '/mail',
           data: {
         // Hard coding the data.
+        // user: this.state.user, <- should be something like this
             user: "b",
             Show: "Inbox",
           }
         })
           .then((res) => {
-            console.log(res)
-          }).catch((e) => {
+            console.log(res.data)
+            this.props.importEmails(res.data)
+        }).catch((e) => {
             console.log(e);
           });
         this.setState({
@@ -103,5 +105,15 @@ class Mail extends Component {
         );
     }
 }
+const mapStateToProps = (state, ownProps) => {
+    return {
+//        messages : state.testReducer.messages,
+    };
+};
 
-export default Mail;
+const mapDispatchToProps = {importEmails};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Mail);

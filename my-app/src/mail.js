@@ -91,11 +91,30 @@ class Mail extends Component {
                                 </thead>
                                 <MailPreviewList />
                             </table>
-                            {/*<Modal>
-                                <h1> Send Email to:</h1>
-                                <p>Dear Sir, please stop replace the milk when you finish it.</p>
+                            {
+                                this.props.currentEmail&&
+                                <Modal>
 
-                            </Modal>*/}
+                                    <table className="ui compact table">
+                                    <tr>
+                                        <td>From :</td><td>{this.props.currentEmail.sentFrom}</td>
+                                        <td>Subject:</td>
+                                        <td>{this.props.currentEmail.subject}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>{this.props.currentEmail.preview}
+                                        </td>
+                                    </tr>
+
+                                    </table>
+
+
+
+                                </Modal>
+
+                            }
+
                         </div>
                     </div>
                 </header>
@@ -104,4 +123,16 @@ class Mail extends Component {
     }
 }
 
-export default Mail;
+function mapStateToProps(state){
+    return{
+        currentEmail : state.mailEditReducer.currentEmail
+    };
+
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({selectEmail: selectEmail}, dispatch)
+
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Mail);

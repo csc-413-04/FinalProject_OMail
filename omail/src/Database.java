@@ -1,5 +1,6 @@
 import static com.mongodb.client.model.Filters.*;
 
+import com.google.gson.*;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -92,19 +93,32 @@ public class Database {
     return true;
   }
 
-  public Boolean deleteMail(Mail mail) {
+  public Boolean deleteMail(String mailId, String user) {
     //this method permanently deletes the mail from database
     //return true if successful, false otherwise.
     //Mails can only be deleted if they are in trash
     //TODO: Find better matching strategy
     Document search;
     try {
-      search = myCollectionMail.find(eq("MailID", mail.getMailID())).first();
+      search = myCollectionMail.find(eq("MailID", mailId)).first();
     } catch (Exception e) {
       return false;
     }
-      myCollectionMail.deleteOne(search);
-
+    Gson gson = new Gson();
+    String m = search.toJson();
+    Mail mail = gson.fromJson(m, Mail.class);
+      if(user.equals(mail.getRecipient())) {
+        mail.recepientDelete();
+        myCollectionMail.deleteOne(search);
+        storeMail(mail);
+      }else if(user.equals(mail.getSender())) {
+        mail.senderDelete();
+        myCollectionMail.deleteOne(search);
+        storeMail(mail);
+      }
+      if (mail.didRecepientDelete() && mail.didSenderDelete()) {
+        myCollectionMail.deleteOne(search);
+      }
     return true;
   }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {selectEmail} from "./redux/action";
+import {selectEmail} from "./redux/action";     
 
 class MailPreviewList extends Component{
 
@@ -10,9 +10,9 @@ class MailPreviewList extends Component{
             return(
             <tr key={emailPreview.id}
                 onClick = {() => this.props.selectEmail(emailPreview)}>
-                <td>{emailPreview.sentFrom}</td>
-                <td>{emailPreview.subject}</td>
-                <td>{emailPreview.preview}
+                <td>{emailPreview.Sender}</td>
+                <td>{emailPreview.Recipient}</td>
+                <td>{emailPreview.MailBody}
                 </td>
             </tr>
             );
@@ -35,7 +35,8 @@ class MailPreviewList extends Component{
 //I'm mapping it to state (instance variables) and using it in the createListItems() function to create the tables
 function mapStateToProps(state){
     return{
-        mail : state.EmailList
+        mail : state.EmailList,
+//       datamail: state.DataEmail
     };
 
 }

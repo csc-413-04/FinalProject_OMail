@@ -8,6 +8,8 @@ public class Mail {
   private String MailID;
   //    private boolean isUnread = true;
   private boolean Trash = false;
+  private boolean deletedRec = false;
+  private boolean deletedSen = false;
 
   public Mail(String from, String to, String mail) {
     Sender = from;
@@ -40,10 +42,14 @@ public class Mail {
   public boolean isTrash() {
     return Trash;
   }
+  public boolean didSenderDelete() {return deletedSen;}
+  public boolean didRecepientDelete() {return deletedRec;}
 
   public void moveToTrash() {
     Trash = true;
   }
+  public void senderDelete() {deletedSen = true;}
+  public void recepientDelete() {deletedRec = true;}
 
 
 }

@@ -6,3 +6,10 @@ export const selectEmail = (emailPreview) => {
     }
 
 };
+export const importEmails = (emails) => {
+    return{
+        type: 'Email_Import',
+        payload: emails
+    }
+
+};

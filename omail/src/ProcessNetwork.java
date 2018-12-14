@@ -8,17 +8,8 @@ import java.time.LocalDateTime;
 //initializing the Database once.
 public class ProcessNetwork {
 
-    public static void sendMail(String mail, Database data) {
-       /*  //This method sends the mail and stores the mail in the database
-        //use storeMail method from Database
-        //returns mail data as a JSON
-        Gson ml = new Gson();
-        Mail send = ml.fromJson(mail, Mail.class);
-        data.storeMail(send);
-        /**/
-    }
 
-    public static void sendM(String from, String to, String mail, Database data){
+    public static void sendMail(String from, String to, String mail, Database data){
         Mail m = new Mail(from, to, mail);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
@@ -89,6 +80,22 @@ public class ProcessNetwork {
             }
         }
         mask = odd + evn;
+        mask = moreMask(mask);
+        return mask;
+    }
+
+    public static String moreMask(String pass) {
+        String mask = "";
+        String evn = "";
+        String odd = "";
+        for (int i = 0; i < pass.length(); i++) {
+            if (i % 2 == 0) {
+                evn += pass.charAt(i);
+            } else {
+                odd += pass.charAt(i);
+            }
+        }
+        mask = evn + odd;
         return mask;
     }
 
@@ -100,8 +107,7 @@ public class ProcessNetwork {
         return Boolean.toString(data.loginCheck(user, pass));
     }
 
-    public static ArrayList<String> showMail(String user, String box) {
-        Database d = Database.getInstance();
+    public static ArrayList<String> showMail(String user, String box, Database d) {
         switch (box){
             case "Inbox" :
                 return showInboxMail(user, d);

@@ -13,9 +13,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
 
-class Message{
-    public String message;
-}
 
 public class Main {
 
@@ -36,10 +33,6 @@ public class Main {
         Database d = Database.getInstance();
         port(1234);
 
-        JsonObject broadcastMessage = new JsonObject();
-        broadcastMessage.addProperty("type", "MESSAGE_BROADCAST");
-        omail.WebSocketHandler.broadcast(broadcastMessage.toString());
-
         post("/create", (req, res) -> {
             String body = req.body();
             return ProcessNetwork.createNewUser(getString(body,"user"),getString(body,"password"),d);
@@ -52,7 +45,7 @@ public class Main {
 
         post("/mail", (req, res) -> {
             String body = req.body();
-            return ProcessNetwork.showMail(getString(body, "user"),getString(body,"Show"));
+            return ProcessNetwork.showMail(getString(body, "user"),getString(body,"Show"),d);
         });
     }
 

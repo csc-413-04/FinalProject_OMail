@@ -5,8 +5,9 @@ import App from './App';
 import {Provider} from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import store from './redux/store.js';
-import {importMessage} from "./redux/actions";
+//import {importMessage} from "./redux/action";
 
+/*
 const websocket = new WebSocket('ws://localhost:1234/ws');
 websocket.onopen = () => {
    console.log('ws has connected');
@@ -28,6 +29,7 @@ websocket.onclose = (e) => {
    console.log('ws closed');
    console.log(e);
 }
+*/
 
 ReactDOM.render(
     <Provider store = {store}>

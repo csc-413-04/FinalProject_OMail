@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {selectEmail} from "./redux/action";     
 
 class MailPreviewList extends Component{
 
     createListItems(){
         return this.props.mail.map((emailPreview) => {
             return(
-            <tr key={emailPreview.id}>
-                <td>{emailPreview.sentFrom}</td>
-                <td>{emailPreview.subject}</td>
-                <td>{emailPreview.preview}
+            <tr key={emailPreview.id}
+                onClick = {() => this.props.selectEmail(emailPreview)}>
+                <td>{emailPreview.Sender}</td>
+                <td>{emailPreview.Recipient}</td>
+                <td>{emailPreview.MailBody}
                 </td>
             </tr>
             );
@@ -29,12 +31,19 @@ class MailPreviewList extends Component{
 
 }
 
+//this is where I'm importing the EmailList from the global variable that's created in the rootReducer
+//I'm mapping it to state (instance variables) and using it in the createListItems() function to create the tables
 function mapStateToProps(state){
     return{
-        mail : state.EmailList
+        mail : state.EmailList,
+//       datamail: state.DataEmail
     };
 
 }
 
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({selectEmail: selectEmail}, dispatch)
 
-export default connect(mapStateToProps)(MailPreviewList);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(MailPreviewList);

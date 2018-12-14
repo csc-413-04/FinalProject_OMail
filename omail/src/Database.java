@@ -1,5 +1,6 @@
 import static com.mongodb.client.model.Filters.*;
 
+import com.google.gson.*;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -51,23 +52,21 @@ public class Database {
     //return true if successful, false otherwise.
     Document doc = new Document("Sender", mail.getSender())
       .append("Recipient", mail.getRecipient()).append("MailBody", mail.getMailBody())
-            .append("Date", mail.getTimeDate()).append("MailID", mail.getMailID()).append("Trash", mail.isTrash());
+            .append("Date", mail.getTimeDate()).append("MailID", mail.getMailID()).append("Trash", mail.isTrash())
+            .append("DeletedRec", mail.didRecepientDelete()).append("DeletedSender", mail.didSenderDelete())
+            .append("TrashSent", mail.isTrashSend());
     myCollectionMail.insertOne(doc);
     //Also copy the contents of the mail into the sending user so user has copy of mail
   }
 
-  public String[] showMail(String user, String mailType) {
-    //This method returns the list of mails that is specified in mailType
-    //if mailType == inbox return inbox mail list, if sent return sent mail list, if trash return trashed mail list
-      return null;
-  }
-
-  public ArrayList<String> showM(String user, String mailType) {
-    ArrayList<String> list = new ArrayList<String>();
+  public ArrayList<Mail> showM(String user, String mailType) {
+    Gson gson = new Gson();
+    ArrayList<Mail> list = new ArrayList<>();
     MongoCursor<Document> cursor = myCollectionMail.find(eq(mailType, user)).iterator();
     try {
       while (cursor.hasNext()) {
-        list.add(cursor.next().toJson());
+        String w = cursor.next().toJson();
+        list.add(gson.fromJson(w, Mail.class));
       }
     } finally {
       cursor.close();
@@ -75,36 +74,61 @@ public class Database {
     return list;
   }
 
-  public Boolean moveMail(Mail mail, String destination) {
+  public boolean moveMail(String mailId, String destination, String user) {
     //this method moves the mail from current list to destination list.
     //return true if successful, false otherwise.\
     //TODO: Find better matching strategy
-    if(deleteMail(mail)) {
       if (destination.equals("Trash")) {
         //search for where the mail is located by the mailID
         //copy the contents of the mail
         //delete the mail
         //insert the copy into the trash
-        mail.moveToTrash();
+        Document search;
+        try {
+          search = myCollectionMail.find(eq("MailID", mailId)).first();
+        } catch (Exception e) {
+          return false;
+        }
+        Gson gson = new Gson();
+        String m = search.toJson();
+        Mail mail = gson.fromJson(m, Mail.class);
+        myCollectionMail.deleteOne(search);
+        if(user.equals(mail.getRecipient())) {
+          mail.moveToTrash();
+        } else if(user.equals(mail.getSender())) {
+          mail.moveToTrashSent();
+        }
         storeMail(mail);
       }
-    }
     return true;
   }
 
-  public Boolean deleteMail(Mail mail) {
+  public boolean deleteMail(String mailId, String user) {
     //this method permanently deletes the mail from database
     //return true if successful, false otherwise.
     //Mails can only be deleted if they are in trash
     //TODO: Find better matching strategy
     Document search;
     try {
-      search = myCollectionMail.find(eq("MailID", mail.getMailID())).first();
+      search = myCollectionMail.find(eq("MailID", mailId)).first();
     } catch (Exception e) {
       return false;
     }
-      myCollectionMail.deleteOne(search);
-
+    Gson gson = new Gson();
+    String m = search.toJson();
+    Mail mail = gson.fromJson(m, Mail.class);
+      if(user.equals(mail.getRecipient())) {
+        mail.recepientDelete();
+        myCollectionMail.deleteOne(search);
+        storeMail(mail);
+      }else if(user.equals(mail.getSender())) {
+        mail.senderDelete();
+        myCollectionMail.deleteOne(search);
+        storeMail(mail);
+      }
+      if (mail.didRecepientDelete() && mail.didSenderDelete()) {
+        myCollectionMail.deleteOne(search);
+      }
     return true;
   }
 

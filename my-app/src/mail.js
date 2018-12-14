@@ -5,26 +5,51 @@ import {connect} from 'react-redux';
 import MailPreviewList from './mailPreviewList';
 import {selectEmail} from "./redux/action";
 import Modal from './modal';
+import axios from 'axios';
+import MailPreviewList from "./mailPreviewList";
+
+class Message extends Component{
+    render(){
+        return(
+            <div className="message">
+                {this.props.content}
+            </div>
+        );
+    }
+}
+
+
 
 
 class Mail extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isToggleOn: true,
-        };
-
-
-        // This binding is necessary to make `this` work in the callback
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        this.setState(state => ({
-            isToggleOn: !state.isToggleOn
-        }));
-
-    }
+//    constructor(props) {
+//        super(props);
+//    
+//        this.state = {
+//          email: "",
+//          type: "", (it can be Inbox, Sent or Trash (trash isnt working))
+//       };
+//      }
+    getInbox = (e) => {
+        axios({
+          method: 'POST',
+          url: '/mail',
+          data: {
+        // Hard coding the data.
+            user: "b",
+            Show: "Inbox",
+          }
+        })
+          .then((res) => {
+            console.log(res)
+          }).catch((e) => {
+            console.log(e);
+          });
+        this.setState({
+          email: '',
+          password: ''
+        })
+      }
 
     render() {
 
@@ -34,17 +59,14 @@ class Mail extends Component {
                     <h1 className="red ui header"><i className="envelope open outline icon"></i>O-mail</h1>,
                     <div className="sidenav">
                         <div className="fluid ui large vertical buttons">
-                            <button className="ui primary button" onClick={this.handleClick}><i
-                                className="envelope icon"></i>
-                                {this.state.isToggleOn ? 'Send' : 'Message Sent!'}
-                            </button>
+                            <button className="ui primary button" onClick={this.getInbox} ><i
+                                className="envelope icon"></i>Inbox</button>
 
-                            <button className="fluid ui button" onClick={this.handleClick}><i
-                                className="inbox icon"></i>
-                                {this.state.isToggleOn ? 'Inbox' : 'Display Inbox'}</button>
+                            <button className="fluid ui button" ><i
+                                className="inbox icon"></i>Sent Mail</button>
 
 
-                            <button href="Sent" className="fluid ui button"><i className="paper plane icon"></i>Sent
+                            <button href="Sent" className="fluid ui button"><i className="paper plane icon"></i>Compose
                             </button>
                             <button href="Drafts" className="fluid ui button"><i className="file icon"></i>Drafts
                             </button>

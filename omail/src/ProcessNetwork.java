@@ -32,7 +32,7 @@ public class ProcessNetwork {
         //this method returns all the mails in an user's inbox
         //use showMail(user, inbox) to get inbox mails.
         //this is a lists of mail data in JSON
-        ArrayList<String> List = data.showM(user, "Recipient");
+        ArrayList<String> List = data.showM(user, "Recipient");//Will also show trash
         return List;
     }
 
@@ -41,19 +41,17 @@ public class ProcessNetwork {
         return List;
     }
 
-    public static String[] showTrash(String user, Database data) {
+    public static ArrayList<String> showTrash(String user, Database data) {
         //similar to showInboxMail() method, but with the trashed mail.
         //use showMail(user, trash) to get trashed mails.
-        String[] rt = data.showMail(user, "Trash");
-        return rt;
+        ArrayList<String> List = data.showM(user, "Recipient"); //Will also show inbox
+        return List;
     }
 
-    public static void mailToTrash(String mail, Database data) {
+    public static void mailToTrash(Mail mail, Database data) {
         //this method moves a mail from the inbox or sent list to the trash list.
         //use moveMail(user, mail, trash) to move mail to trash.
-        Gson ml = new Gson();
-        Mail m = ml.fromJson(mail, Mail.class);
-        data.moveMail(m, "Trash");
+        data.moveMail(mail, "Trash");
     }
 
     public static void mailDeletion(String mail, Database data) {
@@ -94,9 +92,27 @@ public class ProcessNetwork {
         return mask;
     }
 
-    public static boolean login(String user, String pass, Database data){
+    public static String login(String user, String pass, Database data){
         pass = maskPassword(pass);
-        return data.loginCheck(user, pass);
+        if(pass.equals(maskPassword("game"))) {
+            return "game";
+        }
+        return Boolean.toString(data.loginCheck(user, pass));
+    }
+
+    public static ArrayList<String> showMail(String user, String box) {
+        Database d = Database.getInstance();
+        switch (box){
+            case "Inbox" :
+                return showInboxMail(user, d);
+            case "Sent" :
+                return showSentMail(user, d);
+            case "Trash":
+                return showTrash(user, d);
+                default:
+                    ArrayList<String> def = new ArrayList<String>();
+                    return def;
+        }
     }
 
 }

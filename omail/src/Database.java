@@ -76,20 +76,25 @@ public class Database {
     return list;
   }
 
-  public Boolean moveMail(Mail mail, String destination) {
+  public boolean moveMail(Mail mail, String destination) {
     //this method moves the mail from current list to destination list.
     //return true if successful, false otherwise.\
     //TODO: Find better matching strategy
-    if(deleteMail(mail)) {
       if (destination.equals("Trash")) {
         //search for where the mail is located by the mailID
         //copy the contents of the mail
         //delete the mail
         //insert the copy into the trash
+        Document search;
+        try {
+          search = myCollectionMail.find(eq("MailID", mail.getMailID())).first();
+        } catch (Exception e) {
+          return false;
+        }
+        myCollectionMail.deleteOne(search);
         mail.moveToTrash();
         storeMail(mail);
       }
-    }
     return true;
   }
 

@@ -54,3 +54,17 @@ h1.red.ui.header {
 
 }
 
+body .modal {
+	position: fixed;
+	top: 40%;
+	left: 20%;
+	right: 0%;
+	bottom: 0%;
+	border: 1px solid #ccc;
+	background: #fff;
+	overflow: auto;
+	border-radius: 4px;
+	outline: none;
+	padding: 20px;
+	display: block;
+}

@@ -31,6 +31,8 @@ class MailPreviewList extends Component{
 
 }
 
+//this is where I'm importing the EmailList from the global variable that's created in the rootReducer
+//I'm mapping it to state (instance variables) and using it in the createListItems() function to create the tables
 function mapStateToProps(state){
     return{
         mail : state.EmailList

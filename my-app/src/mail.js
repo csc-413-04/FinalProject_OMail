@@ -91,11 +91,11 @@ class Mail extends Component {
                                 </thead>
                                 <MailPreviewList />
                             </table>
-                            <Modal>
+                            {/*<Modal>
                                 <h1> Send Email to:</h1>
                                 <p>Dear Sir, please stop replace the milk when you finish it.</p>
 
-                            </Modal>
+                            </Modal>*/}
                         </div>
                     </div>
                 </header>

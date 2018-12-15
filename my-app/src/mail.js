@@ -6,7 +6,6 @@ import MailPreviewList from './mailPreviewList';
 import {importEmails} from "./redux/action";
 import Modal from './modal';
 import axios from 'axios';
-import mailEditReducer from './redux/mailEditReducer'
 
 
 class Message extends Component{
@@ -115,9 +114,8 @@ class Mail extends Component {
 
 function mapStateToProps(state){
     return{
-        //  currentEmail : state.mailEditReducer.currentEmail
+         currentEmail : state.mailEditReducer.currentEmail
     };
-
 }
 
 

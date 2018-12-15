@@ -1,7 +1,7 @@
 const initialState = {
     test: 'test value',
     messages: ['a demo message'],
-    currentEmail: 'test value'
+    currentEmail: null
 };
 
 const mailEditReducer = (state = initialState, action) => {

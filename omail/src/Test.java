@@ -19,7 +19,7 @@ public class Test {
         while (var > 10000) {
             var /= 100;
         }
-        ProcessNetwork.sendMail("cc", "cola", "ha" + var, d);
+        ProcessNetwork.sendMail("cc", "cola", "none","mail#" + var, d);
         //ProcessNetwork.mailDeletion("5044375673990","cc",d);
         //System.out.println(w);
         //String s = "\"d\"";
@@ -27,7 +27,7 @@ public class Test {
 
         //System.out.println(s);
 
-        ArrayList<String> a = ProcessNetwork.showMail("cc", "Trash", d);
+        ArrayList<String> a = ProcessNetwork.showMail("cola", "Inbox", d);
         for (String b : a)
         {
             System.out.println(b);

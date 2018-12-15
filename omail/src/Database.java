@@ -50,14 +50,13 @@ public class Database {
   public void storeMail(Mail mail) {
     //this method stores the mail in database
     //return true if successful, false otherwise.
-    Document doc = new Document("Sender", mail.getSender())
-      .append("Recipient", mail.getRecipient()).append("MailBody", mail.getMailBody())
+    Document doc = new Document("Sender", mail.getSender()).append("Recipient", mail.getRecipient())
+            .append("Subject", mail.getSubject()).append("MailBody", mail.getMailBody())
             .append("Date", mail.getTimeDate()).append("MailID", mail.getMailID()).append("Trash", mail.isTrash())
             .append("TrashSent", mail.isTrashSend()).append("DeletedRec", mail.didRecepientDelete())
             .append("DeletedSender", mail.didSenderDelete());
     myCollectionMail.insertOne(doc);
-    //Also copy the contents of the mail into the sending user so user has copy of mail
-  }
+    }
 
   public ArrayList<String> showMail(String user, String mailType) {
     ArrayList<String> list = new ArrayList<>();
@@ -77,10 +76,6 @@ public class Database {
     //return true if successful, false otherwise.\
     //TODO: Find better matching strategy
       if (destination.equals("Trash")) {
-        //search for where the mail is located by the mailID
-        //copy the contents of the mail
-        //delete the mail
-        //insert the copy into the trash
         Document search;
         try {
           search = myCollectionMail.find(eq("MailID", mailId)).first();

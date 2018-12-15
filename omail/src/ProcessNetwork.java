@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 public class ProcessNetwork {
 
 
-    public static void sendMail(String from, String to, String mail, Database data){
-        Mail m = new Mail(from, to, mail);
+    public static void sendMail(String from, String to, String subject, String mail, Database data){
+        Mail m = new Mail(from, to, subject, mail);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         m.setTimeDate(dtf.format(now));

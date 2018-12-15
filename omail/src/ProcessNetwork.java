@@ -23,45 +23,60 @@ public class ProcessNetwork {
         //this method returns all the mails in an user's inbox
         //use showMail(user, inbox) to get inbox mails.
         //this is a lists of mail data in JSON
-        ArrayList<Mail> mailList = data.showM(user, "Recipient");//Will also show trash
-        ArrayList<Mail> List = new ArrayList<>();
+        Gson gson = new Gson();
+        ArrayList<String> mailList = data.showMail(user, "Recipient");//Will also show trash
+        ArrayList<Mail> List1 = new ArrayList<>();
         for (int i = 0; i < mailList.size(); i++) {
-            if (!(mailList.get(i).isTrash())) {
-                List.add((mailList.get(i)));
+            if (!(gson.fromJson(mailList.get(i), Mail.class).isTrash())) {
+                List1.add(gson.fromJson(mailList.get(i), Mail.class));
             }
         }
-        return sortTrash(List);
+        mailList.clear();
+        for (int i = List1.size() - 1; i >= 0; i--) {
+            mailList.add(gson.toJson(List1.get(i)));
+        }
+        return mailList;
     }
 
     public static ArrayList<String> showSentMail(String user, Database data) {
         //this method returns a JSON of all the mails in the sent box of a user
-        ArrayList<Mail> mailList = data.showM(user, "Sender");
-        ArrayList<Mail> List = new ArrayList<>();
+        Gson gson = new Gson();
+        ArrayList<String> mailList = data.showMail(user, "Sender");
+        ArrayList<Mail> List1 = new ArrayList<>();
         for (int i = 0; i < mailList.size(); i++) {
-            if (!(mailList.get(i).isTrashSend())) {
-                List.add(mailList.get(i));
+            if (!(gson.fromJson(mailList.get(i), Mail.class).isTrashSend())) {
+                List1.add(gson.fromJson(mailList.get(i), Mail.class));
             }
         }
-        return sortTrash(List);
+        mailList.clear();
+        for (int i = List1.size() - 1; i >= 0; i--) {
+            mailList.add(gson.toJson(List1.get(i)));
+        }
+        return mailList;
     }
 
     public static ArrayList<String> showTrash(String user, Database data) {
         //similar to showInboxMail() method, but with the trashed mail.
         //use showMail(user, trash) to get trashed mails.\
-        ArrayList<Mail> mailList = data.showM(user, "Recipient");//Will also show trash
-        ArrayList<Mail> mailList2 = data.showM(user, "Sender");
-        ArrayList<Mail> List = new ArrayList<>();
+        Gson gson = new Gson();
+        ArrayList<String> mailList = data.showMail(user, "Recipient");
+        ArrayList<String> mailList2 = data.showMail(user, "Sender");
+        ArrayList<Mail> List1 = new ArrayList<>();
         for (int i = 0; i < mailList.size(); i++) {
-            if ((mailList.get(i).isTrash())) {
-                List.add((mailList.get(i)));
+            if ((gson.fromJson(mailList.get(i), Mail.class).isTrash()) && !(gson.fromJson(mailList.get(i), Mail.class).didRecepientDelete())) {
+                List1.add(gson.fromJson(mailList.get(i), Mail.class));
             }
         }
         for (int i = 0; i < mailList2.size(); i++) {
-            if ((mailList2.get(i).isTrashSend())) {
-                List.add((mailList2.get(i)));
+            if ((gson.fromJson(mailList2.get(i), Mail.class).isTrashSend()) && !(gson.fromJson(mailList2.get(i), Mail.class).didSenderDelete())) {
+                List1.add(gson.fromJson(mailList2.get(i), Mail.class));
             }
         }
-        return sortTrash(List);
+        mailList.clear();
+        for (int i = List1.size() - 1; i >= 0; i--) {
+            mailList.add(gson.toJson(List1.get(i)));
+        }
+        return mailList;
     }
 
     public static void mailToTrash(String mailId, String user, Database data) {
@@ -141,22 +156,5 @@ public class ProcessNetwork {
         }
     }
 
-    public static ArrayList<String> sortTrash(ArrayList<Mail> trash) {
-        Gson gson = new Gson();
-        ArrayList<String> List = new ArrayList<>();
-        for (int i = 0; i < trash.size(); i++) {
-            for (int j = i+1; j < trash.size(); j++) {
-                if(Long.parseLong(trash.get(j).getMailID()) > Long.parseLong(trash.get(i).getMailID())) {
-                    Mail mail = trash.get(j);
-                    trash.add(j, trash.get(i));
-                    trash.add(i, mail);
-                }
-            }
-        }
-        for (int i = 0; i < trash.size(); i++) {
-            List.add(gson.toJson(trash.get(i)));
-        }
-        return List;
-    }
 
 }

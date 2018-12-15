@@ -53,27 +53,25 @@ public class Database {
     Document doc = new Document("Sender", mail.getSender())
       .append("Recipient", mail.getRecipient()).append("MailBody", mail.getMailBody())
             .append("Date", mail.getTimeDate()).append("MailID", mail.getMailID()).append("Trash", mail.isTrash())
-            .append("DeletedRec", mail.didRecepientDelete()).append("DeletedSender", mail.didSenderDelete())
-            .append("TrashSent", mail.isTrashSend());
+            .append("TrashSent", mail.isTrashSend()).append("DeletedRec", mail.didRecepientDelete())
+            .append("DeletedSender", mail.didSenderDelete());
     myCollectionMail.insertOne(doc);
     //Also copy the contents of the mail into the sending user so user has copy of mail
   }
 
-  public ArrayList<Mail> showM(String user, String mailType) {
-    Gson gson = new Gson();
-    ArrayList<Mail> list = new ArrayList<>();
+  public ArrayList<String> showMail(String user, String mailType) {
+    ArrayList<String> list = new ArrayList<>();
     MongoCursor<Document> cursor = myCollectionMail.find(eq(mailType, user)).iterator();
     try {
       while (cursor.hasNext()) {
         String w = cursor.next().toJson();
-        list.add(gson.fromJson(w, Mail.class));
+        list.add(w);
       }
     } finally {
       cursor.close();
     }
     return list;
   }
-
   public boolean moveMail(String mailId, String destination, String user) {
     //this method moves the mail from current list to destination list.
     //return true if successful, false otherwise.\

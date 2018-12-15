@@ -3,6 +3,7 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import axios from 'axios';
 import "./Login.css";
 import {Redirect} from 'react-router-dom';
+import createUser from './redux/action'
 
 
 export default class Login extends Component {

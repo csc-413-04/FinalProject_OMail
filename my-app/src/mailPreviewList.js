@@ -36,7 +36,6 @@ class MailPreviewList extends Component{
 function mapStateToProps(state){
     return{
         mail : state.EmailList,
-//       datamail: state.DataEmail
     };
 
 }

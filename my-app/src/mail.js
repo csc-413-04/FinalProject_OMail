@@ -6,6 +6,7 @@ import MailPreviewList from './mailPreviewList';
 import {importEmails} from "./redux/action";
 import Modal from './modal';
 import axios from 'axios';
+import mailEditReducer from './redux/mailEditReducer'
 
 
 class Message extends Component{
@@ -22,14 +23,6 @@ class Message extends Component{
 
 
 class Mail extends Component {
-//    constructor(props) {
-//        super(props);
-//    
-//        this.state = {
-//          email: "",
-//          type: "", (it can be Inbox, Sent or Trash (trash isnt working))
-//       };
-//      }
     getInbox = (e) => {
         axios({
           method: 'POST',
@@ -103,18 +96,12 @@ class Mail extends Component {
                                         <td>Subject:</td>
                                         <td>{this.props.currentEmail.subject}</td>
                                     </tr>
-
                                     <tr>
                                         <td>{this.props.currentEmail.preview}
                                         </td>
                                     </tr>
-
                                     </table>
-
-
-
                                 </Modal>
-
                             }
 
                         </div>
@@ -128,7 +115,7 @@ class Mail extends Component {
 
 function mapStateToProps(state){
     return{
-        currentEmail : state.mailEditReducer.currentEmail
+        //  currentEmail : state.mailEditReducer.currentEmail
     };
 
 }

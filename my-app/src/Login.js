@@ -31,7 +31,10 @@ export default class Login extends Component {
       }
     })
       .then((res) => {
-        console.log(res)
+        console.log(res);
+        if(res.data == "Username already in use."){
+          alert("Username already in use.");
+        }
       }).catch((e) => {
         console.log(e);
       });
@@ -76,6 +79,12 @@ export default class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+  }
+
+  displayScreenLog = (e) => {
+    if(this.setState.state) {
+      alert("Username already in use.");
+    }
   }
 
   render() {

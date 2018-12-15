@@ -37,4 +37,16 @@ class Modal extends Component {
 
 }
 
-export default Modal;
+function mapStateToProps(state){
+    return{
+        mail : state.EmailList
+    };
+
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({selectEmail: selectEmail}, dispatch)
+
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Modal);

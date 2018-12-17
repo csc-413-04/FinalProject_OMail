@@ -84,7 +84,7 @@ class Mail extends Component {
       data: {
         // Hard coding the data.
         // user: this.state.user, <- should be something like this
-        user: "b",
+        user: this.state.email,
         Show: "Trash"
       }
     })

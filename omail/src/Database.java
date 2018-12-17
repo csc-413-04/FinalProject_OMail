@@ -128,8 +128,7 @@ public class Database {
   public boolean createUser(String username, String password) {
     Document search = myCollectionUsers.find(eq("User", username)).first();
     if (search == null) {
-      Document doc = new Document("User", username)
-        .append("Password", password).append("Inbox", new Document()).append("Sent", new Document()).append("Trash", new Document());
+      Document doc = new Document("User", username).append("Password", password);
       myCollectionUsers.insertOne(doc);
       return true;
     }

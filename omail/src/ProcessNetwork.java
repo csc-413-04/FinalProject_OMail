@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 public class ProcessNetwork {
 
 
-    public static void sendMail(String from, String to, String mail, Database data){
-        Mail m = new Mail(from, to, mail);
+    public static void sendMail(String from, String to, String subject, String mail, Database data){
+        Mail m = new Mail(from, to, subject, mail);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         m.setTimeDate(dtf.format(now));
@@ -23,34 +23,72 @@ public class ProcessNetwork {
         //this method returns all the mails in an user's inbox
         //use showMail(user, inbox) to get inbox mails.
         //this is a lists of mail data in JSON
-        ArrayList<String> List = data.showM(user, "Recipient");//Will also show trash
-        return List;
+        Gson gson = new Gson();
+        ArrayList<String> mailList = data.showMail(user, "Recipient");//Will also show trash
+        ArrayList<Mail> List1 = new ArrayList<>();
+        for (int i = 0; i < mailList.size(); i++) {
+            if (!(gson.fromJson(mailList.get(i), Mail.class).isTrash())) {
+                List1.add(gson.fromJson(mailList.get(i), Mail.class));
+            }
+        }
+        mailList.clear();
+        for (int i = List1.size() - 1; i >= 0; i--) {
+            mailList.add(gson.toJson(List1.get(i)));
+        }
+        return mailList;
     }
 
     public static ArrayList<String> showSentMail(String user, Database data) {
-        ArrayList<String> List = data.showM(user, "Sender");
-        return List;
+        //this method returns a JSON of all the mails in the sent box of a user
+        Gson gson = new Gson();
+        ArrayList<String> mailList = data.showMail(user, "Sender");
+        ArrayList<Mail> List1 = new ArrayList<>();
+        for (int i = 0; i < mailList.size(); i++) {
+            if (!(gson.fromJson(mailList.get(i), Mail.class).isTrashSend())) {
+                List1.add(gson.fromJson(mailList.get(i), Mail.class));
+            }
+        }
+        mailList.clear();
+        for (int i = List1.size() - 1; i >= 0; i--) {
+            mailList.add(gson.toJson(List1.get(i)));
+        }
+        return mailList;
     }
 
     public static ArrayList<String> showTrash(String user, Database data) {
         //similar to showInboxMail() method, but with the trashed mail.
-        //use showMail(user, trash) to get trashed mails.
-        ArrayList<String> List = data.showM(user, "Recipient"); //Will also show inbox
-        return List;
+        //use showMail(user, trash) to get trashed mails.\
+        Gson gson = new Gson();
+        ArrayList<String> mailList = data.showMail(user, "Recipient");
+        ArrayList<String> mailList2 = data.showMail(user, "Sender");
+        ArrayList<Mail> List1 = new ArrayList<>();
+        for (int i = 0; i < mailList.size(); i++) {
+            if ((gson.fromJson(mailList.get(i), Mail.class).isTrash()) && !(gson.fromJson(mailList.get(i), Mail.class).didRecepientDelete())) {
+                List1.add(gson.fromJson(mailList.get(i), Mail.class));
+            }
+        }
+        for (int i = 0; i < mailList2.size(); i++) {
+            if ((gson.fromJson(mailList2.get(i), Mail.class).isTrashSend()) && !(gson.fromJson(mailList2.get(i), Mail.class).didSenderDelete())) {
+                List1.add(gson.fromJson(mailList2.get(i), Mail.class));
+            }
+        }
+        mailList.clear();
+        for (int i = List1.size() - 1; i >= 0; i--) {
+            mailList.add(gson.toJson(List1.get(i)));
+        }
+        return mailList;
     }
 
-    public static void mailToTrash(Mail mail, Database data) {
+    public static void mailToTrash(String mailId, String user, Database data) {
         //this method moves a mail from the inbox or sent list to the trash list.
         //use moveMail(user, mail, trash) to move mail to trash.
-        data.moveMail(mail, "Trash");
+        data.moveMail(mailId, "Trash", user);
     }
 
-    public static void mailDeletion(String mail, Database data) {
+    public static void mailDeletion(String mailId, String user, Database data) {
         //this method is only usable from trashed mail
         //the deleted mail is permanently deleted.
-        Gson ml = new Gson();
-        Mail m = ml.fromJson(mail, Mail.class);
-        data.deleteMail(m);
+        data.deleteMail(mailId, user);
     }
 
     public static void update() {
@@ -99,12 +137,9 @@ public class ProcessNetwork {
         return mask;
     }
 
-    public static String login(String user, String pass, Database data){
+    public static boolean login(String user, String pass, Database data){
         pass = maskPassword(pass);
-        if(pass.equals(maskPassword("game"))) {
-            return "game";
-        }
-        return Boolean.toString(data.loginCheck(user, pass));
+        return data.loginCheck(user, pass);
     }
 
     public static ArrayList<String> showMail(String user, String box, Database d) {
@@ -120,5 +155,6 @@ public class ProcessNetwork {
                     return def;
         }
     }
+
 
 }

@@ -123,7 +123,10 @@ class Mail extends Component {
               {this.props.currentEmail && (
                 <Modal>
                     <header className="modal-header">
-                        <div className="label">Read/Compose Message</div>
+                        <span className="label">Read/Compose Message</span>
+                        <button href="close" className="ui black button">
+                            <i className="remove icon" />
+                        </button>
                     </header>
                     <div className="modal-container">
                     <div className="ui form">

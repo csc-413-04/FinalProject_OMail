@@ -15,8 +15,6 @@ class Message extends Component {
 
 class Mail extends Component {
 
-
-
   getInbox = e => {
     axios({
       method: "POST",
@@ -80,14 +78,11 @@ class Mail extends Component {
 
   render() {
     return (
-
-      <div className="App">
-        {this.getInbox()}
+      <div className="App">{this.getInbox()}
         <header className="App-header">
           <h1 className="red ui header">
             <i className="envelope open outline icon" />O-mail
           </h1>
-          ,
           <div className="sidenav">
             <div className="fluid ui large vertical buttons">
               <button href="Sent" className="fluid ui button">
@@ -117,10 +112,7 @@ class Mail extends Component {
               </div>
             </div>
             <div className="rows">
-              <table
-                id="table"
-                className="ui striped compact selectable celled table"
-              >
+              <table id="table" className="ui striped compact selectable celled table">
                 <thead>
                   <tr>
                     <th>From</th>

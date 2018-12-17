@@ -107,7 +107,7 @@ class Mail extends Component {
                                     <tr>
                                         <td>{this.props.currentEmail.preview}
                                         </td>
-                                    </tr>
+                                                                                                      </tr>
 
                                     </table>
 

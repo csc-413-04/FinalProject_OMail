@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d159c385-5183-462d-bd4c-4b4f2ea20f47" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-app/src/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my-app/src/mail.js" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/mail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/omail/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/omail/src/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/omail/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,6 +23,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="gitignore" value="1" />
           <entry key="java" value="1" />
           <entry key="xml" value="1" />
         </counts>
@@ -31,17 +31,20 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JAVA" value="1" />
+          <entry key="PLAIN_TEXT" value="1" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
+          <entry key="gitignore" value="5" />
           <entry key="java" value="59" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="59" />
+          <entry key="PLAIN_TEXT" value="5" />
         </counts>
       </usages-collector>
     </session>
@@ -60,17 +63,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/omail/src/ProcessNetwork.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1785">
+            <state relative-caret-position="1530">
               <caret line="109" column="30" selection-start-line="109" selection-start-column="20" selection-end-line="109" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/omail/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="52" column="131" selection-start-line="52" selection-start-column="131" selection-end-line="52" selection-end-column="131" />
+            <state relative-caret-position="204">
+              <caret line="55" selection-start-line="50" selection-end-line="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="6" lean-forward="true" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -84,6 +96,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/omail/src/Main.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -1943,7 +1956,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545042521590" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545043076348" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -1981,12 +1994,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1545041594251</updated>
-      <workItem from="1545041598406" duration="705000" />
+      <workItem from="1545041598406" duration="1477000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="705000" />
+    <option name="totallyTimeSpent" value="1477000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
@@ -2036,13 +2049,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/omail/src/ProcessNetwork.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1785">
-          <caret line="109" column="30" selection-start-line="109" selection-start-column="20" selection-end-line="109" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/omail/src/Mail.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -2050,10 +2056,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/omail/src/ProcessNetwork.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1530">
+          <caret line="109" column="30" selection-start-line="109" selection-start-column="20" selection-end-line="109" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/omail/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="52" column="131" selection-start-line="52" selection-start-column="131" selection-end-line="52" selection-end-column="131" />
+        <state relative-caret-position="204">
+          <caret line="55" selection-start-line="50" selection-end-line="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="6" lean-forward="true" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
         </state>
       </provider>
     </entry>

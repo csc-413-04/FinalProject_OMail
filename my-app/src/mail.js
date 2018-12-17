@@ -59,7 +59,7 @@ class Mail extends Component {
   sendMail = e => {
     axios({
       method: "POST",
-      url: "/mail",
+      url: "/send",
       data: {
         // Hard coding the data.
         // user: this.state.user, <- should be something like this
@@ -71,7 +71,6 @@ class Mail extends Component {
     })
       .then(res => {
         console.log(res.data);
-        this.props.importEmails(res.data);
       })
       .catch(e => {
         console.log(e);
@@ -106,7 +105,10 @@ class Mail extends Component {
             <i className="envelope open outline icon" />O-mail
           </h1>
           <div className="sidenav">
+          <button onClick={this.sendMail}>SendMAIL TESTING</button>
+
             <div className="fluid ui large vertical buttons">
+            
               <button href="Sent" className="fluid ui button">
                 <i className="paper plane icon" />Compose
               </button>

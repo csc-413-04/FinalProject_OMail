@@ -32,8 +32,8 @@ export default class Login extends Component {
     })
       .then((res) => {
         console.log(res);
-        if(res.data == "Username already in use."){
-          alert("Username already in use.");
+        if(!res.data){
+ //         alert("Username already in use.");
         }
       }).catch((e) => {
         console.log(e);
@@ -56,6 +56,9 @@ export default class Login extends Component {
         console.log(res);
         if(res.data) {
           window.location.href = "/logged";
+        }
+        else{
+//          alert("Username or Password is incorrect");
         }
       }).catch((e) => {
         console.log(e);

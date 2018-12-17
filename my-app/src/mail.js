@@ -56,6 +56,28 @@ class Mail extends Component {
 
   };
 
+  sendMail = e => {
+    axios({
+      method: "POST",
+      url: "/mail",
+      data: {
+        // Hard coding the data.
+        // user: this.state.user, <- should be something like this
+        from: "b",
+        to: "a",
+        subject: "movie",
+        msg: "when are you free for movie?" 
+      }
+    })
+      .then(res => {
+        console.log(res.data);
+        this.props.importEmails(res.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   getTrash = e => {
     axios({
       method: "POST",

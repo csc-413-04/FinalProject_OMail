@@ -3,10 +3,11 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import axios from 'axios';
 import "./Login.css";
 import {Redirect} from 'react-router-dom';
-import createUser from './redux/action'
+import createUser from './redux/action';
+import {connect} from "react-redux"
 
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -135,3 +136,20 @@ export default class Login extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    Username : state.email
+  };
+}
+
+
+// mapDispatchToProps = { loginCheck };
+
+// const mapStateToProps = { 
+//   Username : state.email
+//  };
+
+export default  connect(
+  mapStateToProps,
+)(Login);

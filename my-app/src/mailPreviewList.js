@@ -11,8 +11,8 @@ class MailPreviewList extends Component{
             <tr key={emailPreview.id}
                 onClick = {() => this.props.selectEmail(emailPreview)}>
                 <td>{emailPreview.Sender}</td>
-                <td>{emailPreview.Recipient}</td>
-                <td>{emailPreview.MailBody}
+                <td className="nowrap">{emailPreview.Subject}</td>
+                <td className="truncate">{emailPreview.MailBody}
                 </td>
             </tr>
             );

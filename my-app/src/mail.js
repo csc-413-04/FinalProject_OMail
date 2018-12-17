@@ -86,17 +86,15 @@ class Mail extends Component {
           <div className="sidenav">
             <div className="fluid ui large vertical buttons">
               <button href="Sent" className="fluid ui button">
-              
                 <i className="paper plane icon" />Compose
               </button>
               <button className="ui primary button" onClick={this.getInbox}>
-                <i className="envelope icon" />Inbox
+                <i className="inbox icon" />Inbox
               </button>
 
               <button className="fluid ui button" onClick={this.getSentmail}>
-                <i className="inbox icon" />Sent Mail
+                <i className="envelope icon" />Sent Mail
               </button>
-
               <button href="Trash" className="fluid ui button" onClick={this.getTrash}>
                 <i className="trash icon" />Trash
               </button>
@@ -124,17 +122,34 @@ class Mail extends Component {
               </table>
               {this.props.currentEmail && (
                 <Modal>
-                  <table className="ui compact table">
-                    <tr>
-                      <td>From :</td>
-                      <td>{this.props.currentEmail.Sender}</td>
-                      <td>Subject:</td>
-                      <td>{this.props.currentEmail.Subject}</td>
-                    </tr>
-                    <tr>
-                      <td>{this.props.currentEmail.MailBody}</td>
-                    </tr>
-                  </table>
+                    <header className="modal-header">
+                        <div className="label">Read/Compose Message</div>
+                    </header>
+                    <div className="modal-container">
+                    <div className="ui form">
+                            <div className="inline fields">
+                                <label>From :</label>
+                                <div>{this.props.currentEmail.Sender}</div>
+                            </div>
+                            <div className="ui divider"></div>
+                            <div className="inline fields">
+                                <label>Subject:</label>
+                                <div>{this.props.currentEmail.Subject}</div>
+                            </div>
+                            <div className="ui divider"></div>
+                            <div>
+                                <div>{this.props.currentEmail.MailBody}</div>
+                            </div>
+
+                        <div className="field">
+                        <textarea>{this.props.currentEmail.MailBody}</textarea>
+
+                        </div>
+                    </div>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="ui primary button" role="button">Send/Reply</button>
+                    </div>
                 </Modal>
               )}
             </div>

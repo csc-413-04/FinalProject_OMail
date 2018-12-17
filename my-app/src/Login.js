@@ -3,18 +3,16 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import axios from 'axios';
 import "./Login.css";
 import {Redirect} from 'react-router-dom';
-import createUser from './redux/action';
-import {connect} from "react-redux"
 
 
-class Login extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: "",
       password: "",
-      type: "",
+      type: false,
     };
   }
 
@@ -32,9 +30,9 @@ class Login extends Component {
       }
     })
       .then((res) => {
-        console.log(res);
-        if(!res.data){
- //         alert("Username already in use.");
+        console.log(res.data)
+        if(res.data == false) {
+          alert("Username already exist.");
         }
       }).catch((e) => {
         console.log(e);
@@ -54,12 +52,12 @@ class Login extends Component {
       }
     })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        if(res.data == false) {
+          alert("Wrong email or password. Please try again.")
+        }
         if(res.data) {
           window.location.href = "/logged";
-        }
-        else{
-//          alert("Username or Password is incorrect");
         }
       }).catch((e) => {
         console.log(e);
@@ -85,9 +83,9 @@ class Login extends Component {
     event.preventDefault();
   }
 
-  displayScreenLog = (e) => {
-    if(this.setState.state) {
-      alert("Username already in use.");
+  displayOnScreen = (e) => {
+    if(!this.state.type) {
+      alert("Username already taken.");
     }
   }
 
@@ -119,7 +117,7 @@ class Login extends Component {
             disabled={!this.validateForm()}
             type="submit"
             onClick={this.loginCheck}
-          >
+            >
             Login
           </Button>
           <Button
@@ -136,20 +134,3 @@ class Login extends Component {
     );
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    Username : state.email
-  };
-}
-
-
-// mapDispatchToProps = { loginCheck };
-
-// const mapStateToProps = { 
-//   Username : state.email
-//  };
-
-export default  connect(
-  mapStateToProps,
-)(Login);

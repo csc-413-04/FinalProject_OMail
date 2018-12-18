@@ -18,7 +18,7 @@ class Mail extends Component {
       data: {
         // Hard coding the data.
         // user: this.state.user, <- should be something like this
-        user: "b",
+        user: this.props.currentUser,
         Show: "Inbox"
       }
     })
@@ -38,7 +38,7 @@ class Mail extends Component {
       data: {
         // Hard coding the data.
         // user: this.state.user, <- should be something like this
-        user: "b",
+        user: this.props.currentUser,
         Show: "Sent"
       }
     })
@@ -59,7 +59,7 @@ class Mail extends Component {
       data: {
         // Hard coding the data.
         // user: this.state.user, <- should be something like this
-        from: "b",
+        from: this.props.currentUser,
         to: "a",
         subject: "movie",
         msg: "when are you free for movie?" 
@@ -80,7 +80,7 @@ class Mail extends Component {
       data: {
         // Hard coding the data.
         // user: this.state.user, <- should be something like this
-        user: "b",
+        user: this.props.currentUser,
         Show: "Trash"
       }
     })

@@ -1,5 +1,3 @@
-
-
 export const selectEmail = (emailPreview) => {
     console.log("you selected email: ", emailPreview.id);
     return{
@@ -14,14 +12,6 @@ export const importEmails = (emails) => {
         payload: emails
     }
 };
-
-export const createUser = (namePass) => {
-    return {
-        type: 'CREATE_USER',
-        payload: namePass
-    }
-}
-
 
 export const loginRequest = (loginInfo) => {
     return { 

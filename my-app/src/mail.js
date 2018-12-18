@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
-import { bindActionCreators } from "redux";
+// import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import MailPreviewList from "./mailPreviewList";
 import { importEmails } from "./redux/action";
 import Modal from "./modal";
 import axios from "axios";
+// import userReducer from "./redux/userReducer";
 
-class Message extends Component {
-  render() {
-    return <div className="message">{this.props.content}</div>;
-  }
-}
 
 class Mail extends Component {
 
@@ -56,6 +52,27 @@ class Mail extends Component {
 
   };
 
+  sendMail = e => {
+    axios({
+      method: "POST",
+      url: "/send",
+      data: {
+        // Hard coding the data.
+        // user: this.state.user, <- should be something like this
+        from: "b",
+        to: "a",
+        subject: "movie",
+        msg: "when are you free for movie?" 
+      }
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   getTrash = e => {
     axios({
       method: "POST",
@@ -84,7 +101,10 @@ class Mail extends Component {
             <i className="envelope open outline icon" />O-mail
           </h1>
           <div className="sidenav">
+          <button onClick={this.sendMail}>SendMAIL TESTING</button>
+
             <div className="fluid ui large vertical buttons">
+            
               <button href="Sent" className="fluid ui button">
                 <i className="paper plane icon" />Compose
               </button>
@@ -163,15 +183,15 @@ class Mail extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    currentEmail: state.mailEditReducer.currentEmail
-  };
-}
+// const mapStateToProps = (state, ownProps) => {
+//   return{
+//       currentEmail: "b"
+//   };
+// };
 
 const mapDispatchToProps = { importEmails };
 
 export default connect(
-  mapStateToProps,
+  // mapStateToProps,
   mapDispatchToProps
 )(Mail);

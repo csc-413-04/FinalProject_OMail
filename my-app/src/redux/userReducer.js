@@ -1,12 +1,14 @@
 const initialState = {
-    email: null,
+    email: 'pyae',
     password: null
 }
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LOGIN_REQUEST':
-            return action.payload;
+        return Object.assign({},state,{
+            email: action.payload,
+        });
         default:
             return state;
     }

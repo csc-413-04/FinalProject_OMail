@@ -93,6 +93,10 @@ class Mail extends Component {
       });
   };
 
+  displayLog = (e) => {
+    console.log(this.props.currentUser)
+  }
+
   render() {
     return (
       <div className="App">{this.getInbox()}
@@ -101,7 +105,7 @@ class Mail extends Component {
             <i className="envelope open outline icon" />O-mail
           </h1>
           <div className="sidenav">
-          <button onClick={this.sendMail}>SendMAIL TESTING</button>
+          <button onClick={this.displayLog}>currentUserTesting</button>
 
             <div className="fluid ui large vertical buttons">
             
@@ -185,7 +189,9 @@ class Mail extends Component {
 
  const mapStateToProps = (state, ownProps) => {
    return{
-       currentEmail: state.mailEditReducer.currentEmail
+       currentEmail: state.mailEditReducer.currentEmail,
+       currentUser: state.userReducer.email
+
    };
  };
 

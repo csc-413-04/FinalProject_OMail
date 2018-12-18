@@ -33,7 +33,7 @@ class Login extends Component {
     })
       .then((res) => {
         console.log(res);
-        if(res.data == false){
+        if(!res.data){
           alert("Username already in use.");
         }
       }).catch((e) => {
@@ -57,7 +57,7 @@ class Login extends Component {
         console.log(res);
         if(res.data) {
           // window.location.href = "/logged";
-          this.props.loginRequest(res.data);
+          this.props.loginRequest("hi");
         }
         else{
           alert("Username or Password is incorrect");
@@ -72,8 +72,7 @@ class Login extends Component {
   }
 
   displayLog = (e) => {
-    console.log(this.state.email);
-    console.log(this.state.password);
+    console.log(this.props.currentUser)
   }
 
   handleChange = event => {
@@ -132,6 +131,7 @@ class Login extends Component {
           >
             Create User
           </Button>
+          <Button onClick={this.displayLog}>ClickME</Button>
         </form>
       </div>
     );

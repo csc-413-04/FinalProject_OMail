@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 public class ProcessNetwork {
 
 
-    public static void sendMail(String from, String to, String subject, String mail, Database data){
+    public static boolean sendMail(String from, String to, String subject, String mail, Database data){
         Mail m = new Mail(from, to, subject, mail);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         m.setTimeDate(dtf.format(now));
         String id = Long.toString(System.nanoTime());
         m.setMailID(id);
-        data.storeMail(m);
+        return data.storeMail(m);
     }
 
     public static ArrayList<String> showMail(String user, String box, Database d) {

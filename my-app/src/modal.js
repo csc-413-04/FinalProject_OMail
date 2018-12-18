@@ -6,40 +6,47 @@ import {selectEmail} from "./redux/action";
 import {Provider} from 'react-redux';
 
 class Modal extends Component {
-    componentDidMount(){
-        this.modalTarget = document.createElement('div');
-        this.modalTarget.className = 'modal';
-        document.body.appendChild(this.modalTarget);
-        this._render();
-
-    }
-    _render() {
-        ReactDOM.render(
-        <Provider>
-        <div>{this.props.children}</div>
-        </Provider>,
-            this.modalTarget
-        );
-    }
-
-    componentWillUpdate(){
-        this._render();
-    }
-
-    componentWillUnmount(){
-        ReactDOM.unmountComponentAtNode(this.modalTarget);
-        document.body.removeChild(this.modalTarget);
-    }
 
     render(){
-        return <noscript/>;
+        return (<div className="modal">
+                <header className="modal-header">
+                    <span className="label">Compose Message</span>
+                    <button href="close" className="ui black button" onClick = {() =>  this.props.selectEmail("")}>
+                        <i className="remove icon" />
+                    </button>
+                </header>
+                <div className="modal-container">
+                    <div className="ui form">
+                        <div className="inline fields">
+                            <label>From :</label>
+                            <div>{this.props.currentEmail.Sender}</div>
+                        </div>
+                        <div className="ui divider"></div>
+                        <div className="inline fields">
+                            <label>Subject:</label>
+                            <div>{this.props.currentEmail.Subject}</div>
+                        </div>
+                        <div className="ui divider"></div>
+                        <div className="field">
+                            <textarea>{this.props.currentEmail.MailBody}</textarea>
+
+                        </div>
+                    </div>
+                </div>
+                <div className="modal-footer">
+
+                    <button type="button" className="ui primary button" role="button">Send</button>
+                </div>
+            </div>
+        );
     }
 
 }
 
 function mapStateToProps(state){
     return{
-        mail : state.EmailList
+        mail : state.EmailList,
+        currentEmail: state.mailEditReducer.currentEmail
     };
 
 }

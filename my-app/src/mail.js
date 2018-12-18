@@ -183,15 +183,14 @@ class Mail extends Component {
   }
 }
 
-// const mapStateToProps = (state, ownProps) => {
-//   return{
-//       currentEmail: "b"
-//   };
-// };
+ const mapStateToProps = (state, ownProps) => {
+   return{
+       currentEmail: state.mailEditReducer.currentEmail
+   };
+ };
 
 const mapDispatchToProps = { importEmails };
 
 export default connect(
-  // mapStateToProps,
-  mapDispatchToProps
+   mapStateToProps,mapDispatchToProps
 )(Mail);

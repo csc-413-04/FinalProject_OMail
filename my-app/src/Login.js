@@ -3,8 +3,8 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import axios from 'axios';
 import "./Login.css";
 import {Redirect} from 'react-router-dom';
-import createUser from './redux/action';
 import {connect} from "react-redux"
+import {loginRequest} from './redux/action'
 
 
 class Login extends Component {
@@ -56,7 +56,8 @@ class Login extends Component {
       .then((res) => {
         console.log(res);
         if(res.data) {
-          window.location.href = "/logged";
+          // window.location.href = "/logged";
+          this.props.loginRequest(res.data);
         }
         else{
           alert("Username or Password is incorrect");
@@ -98,12 +99,12 @@ class Login extends Component {
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
             <ControlLabel>Email:</ControlLabel>
-            <FormControl
+             <FormControl
               autoFocus
               type="text"
-              value={this.state.email}
+              value = {this.state.email}
               onChange={this.handleChange}
-            />
+              />
           </FormGroup>
           <FormGroup controlId="password" bsSize="large">
             <ControlLabel>Password:</ControlLabel>
@@ -120,7 +121,7 @@ class Login extends Component {
             type="submit"
             onClick={this.loginCheck}
           >
-            Login
+            Login 
           </Button>
           <Button
             block
@@ -137,19 +138,16 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    Username : state.email
+
+const mapStateToProps = (state, ownProps) => {
+  return{
+      currentUser: state.userReducer.email
   };
-}
+};
 
+const mapDispatchToProps = { loginRequest };
 
-// mapDispatchToProps = { loginCheck };
-
-// const mapStateToProps = { 
-//   Username : state.email
-//  };
-
-export default  connect(
+export default connect(
   mapStateToProps,
+  mapDispatchToProps
 )(Login);

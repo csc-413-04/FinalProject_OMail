@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
-import { bindActionCreators } from "redux";
+// import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import MailPreviewList from "./mailPreviewList";
 import { importEmails } from "./redux/action";
 import Modal from "./modal";
 import axios from "axios";
+// import userReducer from "./redux/userReducer";
 
-class Message extends Component {
-  render() {
-    return <div className="message">{this.props.content}</div>;
-  }
-}
 
 class Mail extends Component {
 
@@ -84,7 +80,7 @@ class Mail extends Component {
       data: {
         // Hard coding the data.
         // user: this.state.user, <- should be something like this
-        user: this.state.email,
+        user: "b",
         Show: "Trash"
       }
     })
@@ -187,15 +183,15 @@ class Mail extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    currentEmail: state.mailEditReducer.currentEmail
-  };
-}
+// const mapStateToProps = (state, ownProps) => {
+//   return{
+//       currentEmail: "b"
+//   };
+// };
 
 const mapDispatchToProps = { importEmails };
 
 export default connect(
-  mapStateToProps,
+  // mapStateToProps,
   mapDispatchToProps
 )(Mail);

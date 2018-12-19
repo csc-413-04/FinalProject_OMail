@@ -47,6 +47,13 @@ public class Main {
             String body = req.body();
             return ProcessNetwork.showMail(getString(body, "user"),getString(body,"Show"),d);
         });
+
+        post("/send", (req, res) -> {
+            String body = req.body();
+            ProcessNetwork.sendMail(getString(body, "from"),getString(body,"to"),getString(body,"subject"), getString(body,"msg"), d);
+            return "sent";
+        });
+
     }
 
 

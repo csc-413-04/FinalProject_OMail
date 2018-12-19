@@ -9,14 +9,28 @@ import java.time.LocalDateTime;
 public class ProcessNetwork {
 
 
-    public static void sendMail(String from, String to, String subject, String mail, Database data){
+    public static boolean sendMail(String from, String to, String subject, String mail, Database data){
         Mail m = new Mail(from, to, subject, mail);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         m.setTimeDate(dtf.format(now));
         String id = Long.toString(System.nanoTime());
         m.setMailID(id);
-        data.storeMail(m);
+        return data.storeMail(m);
+    }
+
+    public static ArrayList<String> showMail(String user, String box, Database d) {
+        switch (box){
+            case "Inbox" :
+                return showInboxMail(user, d);
+            case "Sent" :
+                return showSentMail(user, d);
+            case "Trash":
+                return showTrash(user, d);
+            default:
+                ArrayList<String> def = new ArrayList<String>();
+                return def;
+        }
     }
 
     public static ArrayList<String> showInboxMail(String user, Database data) {
@@ -91,18 +105,9 @@ public class ProcessNetwork {
         data.deleteMail(mailId, user);
     }
 
-    public static void update() {
-        //method used to updte user's inbox
-        // make sure it is constantly running. Need to figure out how
-        // often it needs to run.
-    }
-
-    public static String createNewUser(String username, String password, Database data) {
+    public static boolean createNewUser(String username, String password, Database data) {
         password = maskPassword(password);
-        if(data.createUser(username, password)) {
-            return "okay";
-        }
-        return "Username already in use.";
+        return data.createUser(username, password);
     }
 
     public static String maskPassword(String pass) {
@@ -141,20 +146,4 @@ public class ProcessNetwork {
         pass = maskPassword(pass);
         return data.loginCheck(user, pass);
     }
-
-    public static ArrayList<String> showMail(String user, String box, Database d) {
-        switch (box){
-            case "Inbox" :
-                return showInboxMail(user, d);
-            case "Sent" :
-                return showSentMail(user, d);
-            case "Trash":
-                return showTrash(user, d);
-                default:
-                    ArrayList<String> def = new ArrayList<String>();
-                    return def;
-        }
-    }
-
-
 }

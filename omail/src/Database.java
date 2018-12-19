@@ -36,6 +36,16 @@ public class Database {
     return instance;
   }
 
+  public boolean createUser(String username, String password) {
+    Document search = myCollectionUsers.find(eq("User", username)).first();
+    if (search == null) {
+      Document doc = new Document("User", username).append("Password", password);
+      myCollectionUsers.insertOne(doc);
+      return true;
+    }
+    return false;
+  }
+
   public boolean loginCheck(String user, String pass) {
 
     try {
@@ -47,16 +57,27 @@ public class Database {
     }
   }
 
-  public void storeMail(Mail mail) {
+  //checks to see if user exists
+  public boolean userExists(String user) {
+    Document search = myCollectionUsers.find(eq("User", user)).first();
+    return search != null;
+  }
+
+  public boolean storeMail(Mail mail) {
     //this method stores the mail in database
     //return true if successful, false otherwise.
-    Document doc = new Document("Sender", mail.getSender()).append("Recipient", mail.getRecipient())
-            .append("Subject", mail.getSubject()).append("MailBody", mail.getMailBody())
-            .append("Date", mail.getTimeDate()).append("MailID", mail.getMailID()).append("Trash", mail.isTrash())
-            .append("TrashSent", mail.isTrashSend()).append("DeletedRec", mail.didRecepientDelete())
-            .append("DeletedSender", mail.didSenderDelete());
-    myCollectionMail.insertOne(doc);
+    if (userExists(mail.getRecipient())) {
+      Document doc = new Document("Sender", mail.getSender()).append("Recipient", mail.getRecipient())
+              .append("Subject", mail.getSubject()).append("MailBody", mail.getMailBody())
+              .append("Date", mail.getTimeDate()).append("MailID", mail.getMailID()).append("Trash", mail.isTrash())
+              .append("TrashSent", mail.isTrashSend()).append("DeletedRec", mail.didRecepientDelete())
+              .append("DeletedSender", mail.didSenderDelete());
+      myCollectionMail.insertOne(doc);
+      return true;
+    } else {
+      return false;
     }
+  }
 
   public ArrayList<String> showMail(String user, String mailType) {
     ArrayList<String> list = new ArrayList<>();
@@ -125,14 +146,4 @@ public class Database {
     return true;
   }
 
-  public boolean createUser(String username, String password) {
-    Document search = myCollectionUsers.find(eq("User", username)).first();
-    if (search == null) {
-      Document doc = new Document("User", username)
-        .append("Password", password).append("Inbox", new Document()).append("Sent", new Document()).append("Trash", new Document());
-      myCollectionUsers.insertOne(doc);
-      return true;
-    }
-    return false;
-  }
 }

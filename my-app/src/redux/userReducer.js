@@ -1,15 +1,15 @@
 const initialState = {
-    user: '',
-    password: ''
+    email: 'pyae',
+    logged: true
 }
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LOGIN_REQUEST':
-            return action.payload;
-        case 'CREATE_USER':
-            return action.payload;
-            
+        return Object.assign({},state,{
+            email: action.payload,
+            logged: false,
+        });
         default:
             return state;
     }

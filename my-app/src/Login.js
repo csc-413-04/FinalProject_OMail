@@ -1,19 +1,26 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import axios from 'axios';
+import axios from "axios";
 import "./Login.css";
-import {Redirect} from 'react-router-dom';
-import createUser from './redux/action'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
+import { connect } from "react-redux";
+import { loginRequest } from "./redux/action";
 
-
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
-
+    this.routeChange = this.routeChange.bind(this);
     this.state = {
       email: "",
       password: "",
-      type: "",
+      cur_User: "",
+      islogged: false
     };
   }
 
@@ -21,76 +28,96 @@ export default class Login extends Component {
     return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
-  createUser = (e) => {
+  createUser = e => {
     axios({
-      method: 'POST',
-      url: '/create',
+      method: "POST",
+      url: "/create",
       data: {
         user: this.state.email,
-        password: this.state.password,
+        password: this.state.password
       }
     })
-      .then((res) => {
+      .then(res => {
         console.log(res);
-        if(res.data == "Username already in use."){
+        if (!res.data) {
           alert("Username already in use.");
         }
-      }).catch((e) => {
+      })
+      .catch(e => {
         console.log(e);
       });
     this.setState({
-      email: '',
-      password: ''
-    })
-  }
-  loginCheck = (e) => {
+      email: "",
+      password: ""
+    });
+  };
+
+
+  routeChange(){
+    if(this.state.islogged)
+    {
+    let path = `logged`;
+    this.props.history.push(path);
+    }
+    }
+
+  loginCheck = e => {
     axios({
-      method: 'POST',
-      url: '/login',
+      method: "POST",
+      url: "/login",
       data: {
         user: this.state.email,
-        password: this.state.password,
+        password: this.state.password
       }
     })
-      .then((res) => {
+      .then(res => {
         console.log(res);
-        if(res.data) {
-          window.location.href = "/logged";
+        if (res.data) {
+          this.props.loginRequest(this.state.cur_User);
+          this.state.islogged = true;
+        } else {
+          alert("Username or Password is incorrect");
         }
-      }).catch((e) => {
+      }).then(
+        this.routeChange
+      )
+      .catch(e => {
         console.log(e);
       });
     this.setState({
-      email: '',
-      password: '',
-    })
-  }
+      cur_User: this.state.email,
+      email: "",
+      password: ""
+    });
+  };
 
-  displayLog = (e) => {
-    console.log(this.state.email);
-    console.log(this.state.password);
-  }
+  displayLog = e => {
+    console.log(this.props.logged);
+    console.log(this.props.currentUser);
+  };
 
   handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value
     });
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
-  }
+  };
 
-  displayScreenLog = (e) => {
-    if(this.setState.state) {
+  displayScreenLog = e => {
+    if (this.setState.state) {
       alert("Username already in use.");
     }
-  }
+  };
 
   render() {
     return (
       <div className="Login">
-        <h1 className="red ui header"><i className="envelope open outline icon"></i>O-mail</h1>
+        <h1 className="red ui header">
+          <i className="envelope open outline icon" />O-mail
+        </h1>
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
             <ControlLabel>Email:</ControlLabel>
@@ -127,8 +154,22 @@ export default class Login extends Component {
           >
             Create User
           </Button>
+          <Button onClick={this.displayLog}>ClickME</Button>
         </form>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentUser: state.userReducer.email
+  };
+};
+
+const mapDispatchToProps = { loginRequest };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

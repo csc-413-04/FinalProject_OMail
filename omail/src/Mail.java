@@ -6,7 +6,6 @@ public class Mail {
   private String MailBody;
   private String Date;
   private String MailID;
-  //    private boolean isUnread = true;
   private boolean Trash = false;
   private boolean TrashSent = false;
   private boolean DeletedRec = false;
@@ -34,14 +33,14 @@ public class Mail {
   public String getTimeDate() {
     return Date;
   }
-  public void setTimeDate(String date) {this.Date = date;}
-  public void setMailID(String id){this.MailID = id;}
   public boolean isTrash() { return Trash; }
   public boolean didSenderDelete() {return DeletedSender;}
   public boolean didRecepientDelete() {return DeletedRec;}
   public boolean isTrashSend() {return TrashSent;}
 
   //setters
+  public void setTimeDate(String date) {this.Date = date;}
+  public void setMailID(String id){this.MailID = id;}
   public void moveToTrash() {Trash = true;}
   public void senderDelete() {DeletedSender = true;}
   public void recepientDelete() {DeletedRec = true;}

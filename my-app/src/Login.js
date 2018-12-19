@@ -59,7 +59,7 @@ class Login extends Component {
     let path = `logged`;
     this.props.history.push(path);
     }
-    }
+    };
 
   loginCheck = e => {
     axios({
@@ -73,8 +73,11 @@ class Login extends Component {
       .then(res => {
         console.log(res);
         if (res.data) {
-          this.props.loginRequest(this.state.cur_User);
-          this.state.islogged = true;
+          if(this.state.cur_User == "easteregg") { 
+            window.location.href = 'http://csc412sfsu.com/~pnaing/Game.html';
+          }
+            this.props.loginRequest(this.state.cur_User);
+            this.state.islogged = true;
         } else {
           alert("Username or Password is incorrect");
         }

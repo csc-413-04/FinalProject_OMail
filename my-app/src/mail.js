@@ -5,9 +5,11 @@ import { connect } from "react-redux";
 import MailPreviewList from "./mailPreviewList";
 import { importEmails } from "./redux/action";
 import Modal from "./modal";
+import ComposeModal from "./composeModal";
 import axios from "axios";
 // import userReducer from "./redux/userReducer";
-
+import {composeEmail} from "./redux/action";
+import {selectEmail} from "./redux/action";
 
 class Mail extends Component {
 
@@ -97,6 +99,10 @@ class Mail extends Component {
     console.log(this.props.currentUser)
   }
 
+  composeEmail(){
+
+  }
+
   render() {
     return (
       <div className="App">{this.getInbox()}
@@ -109,7 +115,7 @@ class Mail extends Component {
 
             <div className="fluid ui large vertical buttons">
             
-              <button href="Sent" className="fluid ui button">
+              <button href="Sent" className="fluid ui button" onClick = {() => composeEmail()}>
                 <i className="paper plane icon" />Compose
               </button>
               <button className="ui primary button" onClick={this.getInbox}>
@@ -144,42 +150,9 @@ class Mail extends Component {
                 </thead>
                 <MailPreviewList />
               </table>
-              {this.props.currentEmail && (
-                <Modal>
-                    <header className="modal-header">
-                        <span className="label">Read/Compose Message</span>
-                        <button href="close" className="ui black button">
-                            <i className="remove icon" />
-                        </button>
-                    </header>
-                    <div className="modal-container">
-                    <div className="ui form">
-                            <div className="inline fields">
-                                <label>From :</label>
-                                <div>{this.props.currentEmail.Sender}</div>
-                            </div>
-                            <div className="ui divider"></div>
-                            <div className="inline fields">
-                                <label>Subject:</label>
-                                <div>{this.props.currentEmail.Subject}</div>
-                            </div>
-                            <div className="ui divider"></div>
-                            <div>
-                                <div>{this.props.currentEmail.MailBody}</div>
-                            </div>
-
-                        <div className="field">
-                        <textarea>{this.props.currentEmail.MailBody}</textarea>
-
-                        </div>
-                    </div>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="ui primary button" role="button">Send/Reply</button>
-                    </div>
-                </Modal>
-              )}
-            </div>
+              {this.props.currentEmail && <Modal/>}
+              {this.props.reply && <ComposeModal/>}
+              </div>
           </div>
         </header>
       </div>
@@ -190,7 +163,8 @@ class Mail extends Component {
  const mapStateToProps = (state, ownProps) => {
    return{
        currentEmail: state.mailEditReducer.currentEmail,
-       currentUser: state.userReducer.email
+       currentUser: state.userReducer.email,
+       composeEmail: state.composeEmailReducer.composeEmail
 
    };
  };

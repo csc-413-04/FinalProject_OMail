@@ -6,6 +6,15 @@ export const selectEmail = (emailPreview) => {
     }
 
 };
+
+export const composeEmail = (user) =>{
+    console.log("Compose Email Action");
+    return{
+        type: 'COMPOSE_EMAIL',
+        payload: user
+    }
+}
+
 export const importEmails = (emails) => {
     return{
         type: 'Email_Import',

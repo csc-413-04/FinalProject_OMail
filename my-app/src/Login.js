@@ -92,6 +92,7 @@ class Login extends Component {
   };
 
   displayLog = e => {
+    console.log(this.props.logged);
     console.log(this.props.currentUser);
   };
 

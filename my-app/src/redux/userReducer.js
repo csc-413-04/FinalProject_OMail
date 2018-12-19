@@ -1,6 +1,6 @@
 const initialState = {
     email: 'pyae',
-    password: null
+    logged: true
 }
 
 const userReducer = (state = initialState, action) => {
@@ -8,6 +8,7 @@ const userReducer = (state = initialState, action) => {
         case 'LOGIN_REQUEST':
         return Object.assign({},state,{
             email: action.payload,
+            logged: false,
         });
         default:
             return state;

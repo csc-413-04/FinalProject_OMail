@@ -11,6 +11,7 @@ import axios from "axios";
 
 class Mail extends Component {
 
+
   getInbox = e => {
     axios({
       method: "POST",
@@ -97,9 +98,14 @@ class Mail extends Component {
     console.log(this.props.currentUser)
   }
 
+  componentDidMount()
+  {
+    this.getInbox();
+  }
+
   render() {
     return (
-      <div className="App">{this.getInbox()}
+      <div className="App">
         <header className="App-header">
           <h1 className="red ui header">
             <i className="envelope open outline icon" />O-mail

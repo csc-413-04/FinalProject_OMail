@@ -61,7 +61,7 @@ class ComposeModal extends Component {
                         </div>
                         <div className="ui divider"></div>
                         <div className="field">
-                        <label>Compose Email:<input value={this.state.msg} 
+                        <label>Compose Email:<textarea value={this.state.msg}
                             onChange={e => this.setState({msg: e.target.value})} /></label>
                         </div>
                     </div>

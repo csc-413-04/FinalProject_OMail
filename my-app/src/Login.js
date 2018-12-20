@@ -121,8 +121,8 @@ class Login extends Component {
         <h1 className="red ui header">
           <i className="envelope open outline icon" />O-mail
         </h1>
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
+        <form onSubmit={this.handleSubmit} className="login-panel">
+          <FormGroup controlId="email" bsSize="large" className="email">
             <ControlLabel>Email:</ControlLabel>
             <FormControl
               autoFocus
@@ -131,7 +131,7 @@ class Login extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
+          <FormGroup controlId="password" bsSize="large" className="password">
             <ControlLabel>Password:</ControlLabel>
             <FormControl
               value={this.state.password}
@@ -139,7 +139,7 @@ class Login extends Component {
               type="password"
             />
           </FormGroup>
-          <Button
+          <Button className="ui primary button login"
             block
             bsSize="large"
             disabled={!this.validateForm()}
@@ -148,7 +148,7 @@ class Login extends Component {
           >
             Login
           </Button>
-          <Button
+          <Button className="ui secondary button create"
             block
             bsSize="large"
             disabled={!this.validateForm()}

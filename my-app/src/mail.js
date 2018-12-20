@@ -117,7 +117,7 @@ class Mail extends Component {
             <i className="envelope open outline icon" />O-mail
           </h1>
           <div className="sidenav">
-          <button onClick={this.displayLog}>currentUserTesting</button>
+              {/*<button onClick={this.displayLog}>currentUserTesting</button>*/}
 
             <div className="fluid ui large vertical buttons">
             

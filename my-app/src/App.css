@@ -103,3 +103,27 @@ body .modal {
 .nowrap {
 	white-space: nowrap;
 }
+
+.login-panel{
+	height: 300px;
+
+}
+
+.email{
+	padding-top:20px;
+	padding-bottom:20px;
+	text-align:center;
+
+}
+
+.password{
+	padding-bottom: 20px;
+}
+
+.create{
+
+}
+
+.login{
+	margin:auto;
+}

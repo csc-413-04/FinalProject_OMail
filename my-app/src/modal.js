@@ -65,7 +65,7 @@ class Modal extends Component {
                             <p>{this.props.currentEmail.MailBody}</p>
                         </div>
                         <div className="field">
-                            <label>Type Reply Here:<input value={this.state.msg} 
+                            <label>Type Reply Here:<textarea value={this.state.msg}
                             onChange={e => this.setState({msg: e.target.value})} /></label>
                         </div>
                     </div>

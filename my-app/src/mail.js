@@ -128,7 +128,7 @@ class Mail extends Component {
               <button href="Sent" className="fluid ui button" onClick = {() => this.props.composeEmail(this.state)}>
                 <i className="paper plane icon" />Compose
               </button>
-              <button className="ui primary button" onClick={this.getInbox}>
+              <button className="ui button" onClick={this.getInbox}>
                 <i className="inbox icon" />Inbox
               </button>
 

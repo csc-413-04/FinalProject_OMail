@@ -19,12 +19,14 @@ class Mail extends Component {
     this.state = {
         from: "",
         to: "",
-        message: ""
+        message: "",
+        inbox: true
     };
 
   }
 
     getInbox = e => {
+    this.setState({inbox:true})
     axios({
       method: "POST",
       url: "/mail",
@@ -45,6 +47,7 @@ class Mail extends Component {
   };
 
   getSentmail = e => {
+    this.setState({inbox:false})
     axios({
       method: "POST",
       url: "/mail",
@@ -56,6 +59,7 @@ class Mail extends Component {
       .then(res => {
         console.log(res.data);
         this.props.importEmails(res.data);
+
       })
       .catch(e => {
         console.log(e);
@@ -149,7 +153,7 @@ class Mail extends Component {
               <table id="table" className="ui striped compact selectable celled table">
                 <thead>
                   <tr>
-                    <th>From</th>
+                    <th>{this.state.inbox ? "From" : "to"}</th>
                     <th>Subject</th>
                     <th>Preview</th>
                   </tr>

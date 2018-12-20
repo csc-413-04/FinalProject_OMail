@@ -18,24 +18,24 @@ class ComposeModal extends Component {
         };
       }
 
-// sendMail = e => {
-//     axios({
-//         method: "POST",
-//         url: "/send",
-//         data: {
-//         from: this.props.currentUser,
-//         to: this.state.recipient,
-//         subject: this.state.subject,
-//         msg: "when are you free for movie?" 
-//         }
-//     })
-//         .then(res => {
-//         console.log(res.data);
-//         })
-//         .catch(e => {
-//         console.log(e);
-//         });
-//     };
+ sendMail = e => {
+     axios({
+         method: "POST",
+         url: "/send",
+         data: {
+         from: this.props.currentUser,
+         to: this.state.recipient,
+         subject: this.state.subject,
+         msg: this.state.msg 
+         }
+     })
+         .then(res => {
+         console.log(res.data);
+         })
+         .catch(e => {
+         console.log(e);
+         });
+     };
 
     render(){
         return (<div id="compose-modal" className="modal">
@@ -53,11 +53,11 @@ class ComposeModal extends Component {
                         </div>
                         <div className="inline fields">
                             <label>To:</label>
-                            <input value={this.state.recipient}></input>
+                            <input value={this.state.recipient} onChange={e => this.setState({recipient: e.target.value})} ></input>
                         </div>
                         <div className="inline fields">
                             <label>Subject:</label>
-                            <input value={this.state.subject}></input>
+                            <input value={this.state.subject} onChange={e => this.setState({subject: e.target.value})}></input>
                         </div>
                         <div className="ui divider"></div>
                         <div className="field">

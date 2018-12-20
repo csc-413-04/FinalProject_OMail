@@ -19,12 +19,15 @@ class Mail extends Component {
     this.state = {
         from: "",
         to: "",
-        message: ""
+        message: "",
+        inbox: true
     };
 
   }
 
     getInbox = e => {
+      this.setState({inbox:true})
+
     axios({
       method: "POST",
       url: "/mail",
@@ -45,6 +48,7 @@ class Mail extends Component {
   };
 
   getSentmail = e => {
+    this.setState({inbox:false})
     axios({
       method: "POST",
       url: "/mail",
@@ -121,10 +125,10 @@ class Mail extends Component {
 
             <div className="fluid ui large vertical buttons">
             
-              <button href="Sent" className="fluid ui button" onClick = {() => this.props.composeEmail(this.state)}>
+              <button href="Sent" className="ui primary button" onClick = {() => this.props.composeEmail(this.state)}>
                 <i className="paper plane icon" />Compose
               </button>
-              <button className="ui primary button" onClick={this.getInbox}>
+              <button  className="fluid ui button" onClick={this.getInbox}>
                 <i className="inbox icon" />Inbox
               </button>
 
@@ -149,12 +153,12 @@ class Mail extends Component {
               <table id="table" className="ui striped compact selectable celled table">
                 <thead>
                   <tr>
-                    <th>From</th>
+                    <th>{this.state.inbox ? "From" : "To"} </th>
                     <th>Subject</th>
                     <th>Preview</th>
                   </tr>
                 </thead>
-                <MailPreviewList />
+                <MailPreviewList show={this.state.inbox}/>
               </table>
               {this.props.currentEmail && <Modal/>}
               {this.props.reply && <ComposeModal/>}

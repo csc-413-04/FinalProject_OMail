@@ -5,12 +5,14 @@ import {selectEmail} from "./redux/action";
 
 class MailPreviewList extends Component{
 
+
+
     createListItems(){
         return this.props.mail.map((emailPreview) => {
             return(
             <tr key={emailPreview.id}
                 onClick = {() => this.props.selectEmail(emailPreview)}>
-                <td>{emailPreview.Sender}</td>
+                <td>{this.props.show ? emailPreview.Sender : emailPreview.Recipient}</td>
                 <td className="nowrap">{emailPreview.Subject}</td>
                 <td className="truncate">{emailPreview.MailBody}
                 </td>

@@ -8,7 +8,6 @@ import Modal from "./modal";
 import ComposeModal from "./composeModal";
 import {sendMail} from "./composeModal"
 import axios from "axios";
-// import userReducer from "./redux/userReducer";
 import {composeEmail} from "./redux/action";
 import {selectEmail} from "./redux/action";
 

@@ -30,6 +30,7 @@ class ComposeModal extends Component {
          }
      })
          .then(res => {
+         this.props.closeCompose()
          console.log(res.data);
          })
          .catch(e => {

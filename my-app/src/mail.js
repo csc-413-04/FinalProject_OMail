@@ -3,7 +3,7 @@ import "./App.css";
 // import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import MailPreviewList from "./mailPreviewList";
-import { importEmails } from "./redux/action";
+import {closeCompose, importEmails} from "./redux/action";
 import Modal from "./modal";
 import ComposeModal from "./composeModal";
 import {sendMail} from "./composeModal"
@@ -151,7 +151,7 @@ class Mail extends Component {
               </div>
             </div>
             <div className="rows">
-              <table id="table" className="ui striped compact selectable celled table">
+              <table id="table" className="scroll ui striped compact selectable celled table">
                 <thead>
                   <tr>
                     <th>{this.state.inbox ? "From" : "to"}</th>
@@ -183,7 +183,7 @@ class Mail extends Component {
 //const mapDispatchToProps = { importEmails };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({composeEmail: composeEmail, importEmails}, dispatch)
+    return bindActionCreators({composeEmail: composeEmail, importEmails, closeCompose: closeCompose}, dispatch)
 
 }
 

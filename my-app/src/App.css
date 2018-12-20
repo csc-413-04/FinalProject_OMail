@@ -130,5 +130,9 @@ body .modal {
 
 .scroll{
 	height: 100%;
+	width: 100%;
+	display: block;
 	overflow-y: scroll;
+	flex-grow: 2;
+	background: #dedede;
 }

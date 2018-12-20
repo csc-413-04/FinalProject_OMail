@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import "./App.css";
 import Mail from "./mail";
 import Login from "./Login";
-import sendmail from "./sendmail";
-import { Provider } from "react-redux";
 
 
 class App extends Component {

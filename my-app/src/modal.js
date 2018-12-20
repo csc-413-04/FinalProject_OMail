@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {composeEmail, selectEmail} from "./redux/action";
-import {Provider} from 'react-redux';
+import {selectEmail} from "./redux/action";
+
 import axios from 'axios' 
 
 class Modal extends Component {
@@ -15,8 +14,6 @@ class Modal extends Component {
             subject: this.props.currentEmail.Subject,
             msg: ""
         };
-        // this.handleChange = this.handleChange.bind(this);
-
     }
 
 
@@ -34,7 +31,7 @@ class Modal extends Component {
           }
         })
           .then(res => {
-            this.props.closeCompose()
+            this.props.selectEmail("")
             console.log(res.data);
           })
           .catch(e => {

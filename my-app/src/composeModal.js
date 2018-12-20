@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {closeCompose, composeEmail} from "./redux/action";
-import {Provider} from 'react-redux';
 import axios from "axios";
 
 class ComposeModal extends Component {

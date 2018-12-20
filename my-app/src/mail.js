@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import "./App.css";
-// import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import MailPreviewList from "./mailPreviewList";
 import {closeCompose, importEmails} from "./redux/action";
 import Modal from "./modal";
 import ComposeModal from "./composeModal";
-import {sendMail} from "./composeModal"
 import axios from "axios";
 import {composeEmail} from "./redux/action";
-import {selectEmail} from "./redux/action";
 import {bindActionCreators} from "redux";
 
 class Mail extends Component {
@@ -32,8 +29,6 @@ class Mail extends Component {
       method: "POST",
       url: "/mail",
       data: {
-        // Hard coding the data.
-        // user: this.state.user, <- should be something like this
         user: this.props.currentUser,
         Show: "Inbox"
       }
@@ -67,25 +62,6 @@ class Mail extends Component {
       });
 
   };
-
-  // sendMail = e => {
-  //   axios({
-  //     method: "POST",
-  //     url: "/send",
-  //     data: {
-  //       from: this.props.currentUser,
-  //       to: "a",
-  //       subject: "movie",
-  //       msg: "when are you free for movie?" 
-  //     }
-  //   })
-  //     .then(res => {
-  //       console.log(res.data);
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //     });
-  // };
 
   getTrash = e => {
     axios({
@@ -151,7 +127,7 @@ class Mail extends Component {
               </div>
             </div>
             <div className="rows">
-              <table id="table" className="scroll ui striped compact selectable celled table">
+              <table id="table" className="ui striped compact selectable celled table">
                 <thead>
                   <tr>
                     <th>{this.state.inbox ? "From" : "to"}</th>
@@ -159,6 +135,7 @@ class Mail extends Component {
                     <th>Preview</th>
                   </tr>
                 </thead>
+                
                 <MailPreviewList show={this.state.inbox}/>
               </table>
               {this.props.currentEmail && <Modal/>}

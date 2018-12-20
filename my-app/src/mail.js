@@ -60,6 +60,7 @@ class Mail extends Component {
       .then(res => {
         console.log(res.data);
         this.props.importEmails(res.data);
+
       })
       .catch(e => {
         console.log(e);
@@ -153,7 +154,7 @@ class Mail extends Component {
               <table id="table" className="ui striped compact selectable celled table">
                 <thead>
                   <tr>
-                    <th>{this.state.inbox ? "From" : "To"} </th>
+                    <th>{this.state.inbox ? "From" : "to"}</th>
                     <th>Subject</th>
                     <th>Preview</th>
                   </tr>

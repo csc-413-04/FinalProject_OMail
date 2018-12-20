@@ -62,24 +62,24 @@ class Mail extends Component {
 
   };
 
-  sendMail = e => {
-    axios({
-      method: "POST",
-      url: "/send",
-      data: {
-        from: this.props.currentUser,
-        to: "a",
-        subject: "movie",
-        msg: "when are you free for movie?" 
-      }
-    })
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  // sendMail = e => {
+  //   axios({
+  //     method: "POST",
+  //     url: "/send",
+  //     data: {
+  //       from: this.props.currentUser,
+  //       to: "a",
+  //       subject: "movie",
+  //       msg: "when are you free for movie?" 
+  //     }
+  //   })
+  //     .then(res => {
+  //       console.log(res.data);
+  //     })
+  //     .catch(e => {
+  //       console.log(e);
+  //     });
+  // };
 
   getTrash = e => {
     axios({

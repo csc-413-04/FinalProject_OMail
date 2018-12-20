@@ -11,10 +11,16 @@ class Modal extends Component {
         super(props);
         this.state = {
             from: this.props.currentEmail.Sender,
+            subject: this.props.currentEmail.Subject,
             msg: ""
         };
+        this.handleChange = this.handleChange.bind(this);
 
     }
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+      }
 
     sendMail = e => {
         axios({
@@ -59,14 +65,14 @@ class Modal extends Component {
                             <p>{this.props.currentEmail.MailBody}</p>
                         </div>
                         <div className="field">
-                            <textarea>Reply</textarea>
-                            <input value={this.state.msg}></input>
+                            <label>Type Reply Here:<input value={this.state.msg} 
+                            onChange={e => this.setState({msg: e.target.value})} /></label>
                         </div>
                     </div>
                 </div>
                 <div className="modal-footer">
 
-                    <button type="button" className="ui primary button" role="button" onclick={this.sendMail}>Reply</button>
+                    <button type="button" className="ui primary button" role="button" onClick={this.sendMail}>Reply</button>
                 </div>
             </div>
         );
@@ -78,8 +84,6 @@ function mapStateToProps(state){
     return{
         mail : state.EmailList,
         currentEmail: state.mailEditReducer.currentEmail
-
-
     };
 
 }

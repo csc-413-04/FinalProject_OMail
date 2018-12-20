@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d159c385-5183-462d-bd4c-4b4f2ea20f47" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-app/src/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-app/src/composeModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/composeModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my-app/src/mail.js" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/mail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-app/src/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/modal.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/omail/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,7 +55,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/omail/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
+            <state relative-caret-position="423">
               <caret line="57" selection-start-line="57" selection-end-line="57" />
             </state>
           </provider>
@@ -2077,7 +2075,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/omail/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
+        <state relative-caret-position="423">
           <caret line="57" selection-start-line="57" selection-end-line="57" />
         </state>
       </provider>

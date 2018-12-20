@@ -157,7 +157,6 @@ class Login extends Component {
           >
             Create User
           </Button>
-          <Button onClick={this.displayLog}>ClickME</Button>
         </form>
       </div>
     );

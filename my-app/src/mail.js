@@ -6,13 +6,22 @@ import MailPreviewList from "./mailPreviewList";
 import { importEmails } from "./redux/action";
 import Modal from "./modal";
 import ComposeModal from "./composeModal";
+import {sendMail} from "./composeModal"
 import axios from "axios";
 // import userReducer from "./redux/userReducer";
 import {composeEmail} from "./redux/action";
 import {selectEmail} from "./redux/action";
 
 class Mail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        from: "",
+        to: "",
+        message: ""
+    };
 
+}
 
   getInbox = e => {
     axios({
@@ -39,8 +48,6 @@ class Mail extends Component {
       method: "POST",
       url: "/mail",
       data: {
-        // Hard coding the data.
-        // user: this.state.user, <- should be something like this
         user: this.props.currentUser,
         Show: "Sent"
       }
@@ -60,8 +67,6 @@ class Mail extends Component {
       method: "POST",
       url: "/send",
       data: {
-        // Hard coding the data.
-        // user: this.state.user, <- should be something like this
         from: this.props.currentUser,
         to: "a",
         subject: "movie",
@@ -81,8 +86,6 @@ class Mail extends Component {
       method: "POST",
       url: "/mail",
       data: {
-        // Hard coding the data.
-        // user: this.state.user, <- should be something like this
         user: this.props.currentUser,
         Show: "Trash"
       }

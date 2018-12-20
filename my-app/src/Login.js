@@ -56,8 +56,8 @@ class Login extends Component {
   routeChange(){
     if(this.state.islogged)
     {
-    let path = `logged`;
-    this.props.history.push(path);
+      let path = `logged`;
+      this.props.history.push(path);
     }
     };
 

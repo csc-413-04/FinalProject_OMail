@@ -1,20 +1,11 @@
 import static com.mongodb.client.model.Filters.*;
-
 import com.google.gson.*;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-
-import javax.servlet.http.Cookie;
-
-import org.eclipse.jetty.server.Authentication;
-
 import java.util.*;
-import javax.print.Doc;
-import java.util.*;
-import java.util.ArrayList;
 
 public class Database {
   private static Database instance = null;

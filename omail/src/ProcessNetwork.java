@@ -1,5 +1,4 @@
 import com.google.gson.*;
-
 import java.util.*;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
@@ -110,6 +109,11 @@ public class ProcessNetwork {
         return data.createUser(username, password);
     }
 
+    public static boolean login(String user, String pass, Database data){
+        pass = maskPassword(pass);
+        return data.loginCheck(user, pass);
+    }
+
     public static String maskPassword(String pass) {
         String mask = "";
         String evn = "";
@@ -142,8 +146,4 @@ public class ProcessNetwork {
         return mask;
     }
 
-    public static boolean login(String user, String pass, Database data){
-        pass = maskPassword(pass);
-        return data.loginCheck(user, pass);
-    }
 }

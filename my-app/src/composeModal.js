@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {composeEmail} from "./redux/action";
+import {closeCompose, composeEmail} from "./redux/action";
 import {Provider} from 'react-redux';
 
 class ComposeModal extends Component {
@@ -11,7 +11,7 @@ class ComposeModal extends Component {
         return (<div id="compose-modal" className="modal">
                 <header className="modal-header">
                     <span className="label">Compose Message</span>
-                    <button href="close" className="ui black button">
+                    <button href="close" className="ui black button" onClick = {() => this.props.closeCompose()}>
                         <i className="remove icon" />
                     </button>
                 </header>
@@ -57,7 +57,7 @@ function mapStateToProps(state){
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({composeEmail: composeEmail}, dispatch)
+    return bindActionCreators({composeEmail: composeEmail, closeCompose: closeCompose}, dispatch)
 
 }
 

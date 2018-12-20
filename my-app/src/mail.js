@@ -10,11 +10,17 @@ import axios from "axios";
 // import userReducer from "./redux/userReducer";
 import {composeEmail} from "./redux/action";
 import {selectEmail} from "./redux/action";
+import {bindActionCreators} from "redux";
 
 class Mail extends Component {
+  constructor(props) {
+    super(props);
 
+      this.setState({reply:true});
 
-  getInbox = e => {
+  }
+
+    getInbox = e => {
     axios({
       method: "POST",
       url: "/mail",
@@ -117,7 +123,7 @@ class Mail extends Component {
 
             <div className="fluid ui large vertical buttons">
             
-              <button href="Sent" className="fluid ui button" onClick = {() => composeEmail()}>
+              <button href="Sent" className="fluid ui button" onClick = {() => this.props.composeEmail(this.state)}>
                 <i className="paper plane icon" />Compose
               </button>
               <button className="ui primary button" onClick={this.getInbox}>
@@ -166,12 +172,18 @@ class Mail extends Component {
    return{
        currentEmail: state.mailEditReducer.currentEmail,
        currentUser: state.userReducer.email,
-       composeEmail: state.composeEmailReducer.composeEmail
+       reply: state.composeEmailReducer.reply
 
    };
  };
 
-const mapDispatchToProps = { importEmails };
+//const mapDispatchToProps = { importEmails };
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({composeEmail: composeEmail, importEmails}, dispatch)
+
+}
+
 
 export default connect(
    mapStateToProps,mapDispatchToProps

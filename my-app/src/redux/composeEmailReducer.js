@@ -1,7 +1,8 @@
 const initialState = {
-    currentEmail: null,
+    currentEmail: false,
     username: null,
-    reply: false
+    reply: false,
+
 };
 
 
@@ -9,7 +10,11 @@ const composeEmailReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'COMPOSE_EMAIL':
             return Object.assign({},state,{
-                reply:true
+                reply : true
+            });
+        case 'CLOSE_COMPOSE':
+            return Object.assign({},state,{
+                reply : false
             });
 
         default:

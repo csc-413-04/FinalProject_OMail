@@ -1,32 +1,138 @@
-.App {
-  text-align: center;
+@import 'https://use.fontawesome.com/releases/v5.5.0/css/all.css';
+
+
+.main-container{
+	max-width: 1200px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.header{
+	font-size: 40px;
+	color:red;
+	background: #34435E;
+	margin:0px;
+	height: 62px;
+	padding-left: 15px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    background-color: #8D8E8E;
+    overflow-x: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+.main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.search-container{
+	height: 48px;
+	background: #BBBBBF;
+}
+
+.search-container input{
+  	width: 100%;
+  	max-width: 800px;
+  	min-width: 200px;
+  	padding: 6px;
+  	margin-left: 6px;
+  	border: none;
+  	font-size: 17px;
+}
+
+/*adding a class to remove the bottom margin in the O-Mail header*/
+h1.red.ui.header {
+	margin-bottom: 0px;
+	padding-top: 15px;
+
+}
+
+body .modal {
+	position: fixed;
+	top: 40%;
+	left: 40%;
+	right: 0%;
+	bottom: 0%;
+	border: 1px solid #ccc;
+	background: #fff;
+	overflow: auto;
+	border-radius: 4px;
+	outline: none;
+	display: block;
+}
+
+.modal-header{
+	background-color: black;
+	color: white;
+	font-weight:bold;
+	padding-top:10px;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+.modal-header .label{
+	padding-left: 10px;
+}
+
+.modal-container{
+	padding-left:10px;
+	padding-right:10px;
+
+}
+
+.modal-footer{
+	position:absolute;
+	bottom:0;
+	width: 100%;
+	padding-bottom: 10px;
+	padding-left:10px;
+}
+
+.truncate{
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	max-width:500px;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.login-panel{
+	height: 300px;
+
+}
+
+.email{
+	padding-top:20px;
+	padding-bottom:20px;
+	text-align:center;
+
+}
+
+.password{
+	padding-bottom: 20px;
+}
+
+.create{
+
+}
+
+.login{
+	margin:auto;
+}
+
+.scroll{
+	height: 100%;
+	width: 100%;
+	display: block;
+	overflow-y: scroll;
+	flex-grow: 2;
+	background: #dedede;
 }

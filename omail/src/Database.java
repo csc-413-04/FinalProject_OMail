@@ -1,19 +1,11 @@
 import static com.mongodb.client.model.Filters.*;
-
+import com.google.gson.*;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-
-import javax.servlet.http.Cookie;
-
-import org.eclipse.jetty.server.Authentication;
-
 import java.util.*;
-import javax.print.Doc;
-import java.util.*;
-import java.util.ArrayList;
 
 public class Database {
   private static Database instance = null;
@@ -35,6 +27,16 @@ public class Database {
     return instance;
   }
 
+  public boolean createUser(String username, String password) {
+    Document search = myCollectionUsers.find(eq("User", username)).first();
+    if (search == null) {
+      Document doc = new Document("User", username).append("Password", password);
+      myCollectionUsers.insertOne(doc);
+      return true;
+    }
+    return false;
+  }
+
   public boolean loginCheck(String user, String pass) {
 
     try {
@@ -46,76 +48,93 @@ public class Database {
     }
   }
 
-  public void storeMail(Mail mail) {
+  //checks to see if user exists
+  public boolean userExists(String user) {
+    Document search = myCollectionUsers.find(eq("User", user)).first();
+    return search != null;
+  }
+
+  public boolean storeMail(Mail mail) {
     //this method stores the mail in database
     //return true if successful, false otherwise.
-    Document doc = new Document("Sender", mail.getSender())
-      .append("Recipient", mail.getRecipient()).append("MailBody", mail.getMailBody())
-            .append("Date", mail.getTimeDate()).append("MailID", mail.getMailID()).append("Trash", mail.isTrash());
-    myCollectionMail.insertOne(doc);
-    //Also copy the contents of the mail into the sending user so user has copy of mail
+    if (userExists(mail.getRecipient())) {
+      Document doc = new Document("Sender", mail.getSender()).append("Recipient", mail.getRecipient())
+              .append("Subject", mail.getSubject()).append("MailBody", mail.getMailBody())
+              .append("Date", mail.getTimeDate()).append("MailID", mail.getMailID()).append("Trash", mail.isTrash())
+              .append("TrashSent", mail.isTrashSend()).append("DeletedRec", mail.didRecepientDelete())
+              .append("DeletedSender", mail.didSenderDelete());
+      myCollectionMail.insertOne(doc);
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  public String[] showMail(String user, String mailType) {
-    //This method returns the list of mails that is specified in mailType
-    //if mailType == inbox return inbox mail list, if sent return sent mail list, if trash return trashed mail list
-      return null;
-  }
-
-  public ArrayList<String> showM(String user, String mailType) {
-    ArrayList<String> list = new ArrayList<String>();
+  public ArrayList<String> showMail(String user, String mailType) {
+    ArrayList<String> list = new ArrayList<>();
     MongoCursor<Document> cursor = myCollectionMail.find(eq(mailType, user)).iterator();
     try {
       while (cursor.hasNext()) {
-        list.add(cursor.next().toJson());
+        String w = cursor.next().toJson();
+        list.add(w);
       }
     } finally {
       cursor.close();
     }
     return list;
   }
-
-  public Boolean moveMail(Mail mail, String destination) {
+  public boolean moveMail(String mailId, String destination, String user) {
     //this method moves the mail from current list to destination list.
     //return true if successful, false otherwise.\
     //TODO: Find better matching strategy
-    if(deleteMail(mail)) {
       if (destination.equals("Trash")) {
-        //search for where the mail is located by the mailID
-        //copy the contents of the mail
-        //delete the mail
-        //insert the copy into the trash
-        mail.moveToTrash();
+        Document search;
+        try {
+          search = myCollectionMail.find(eq("MailID", mailId)).first();
+        } catch (Exception e) {
+          return false;
+        }
+        Gson gson = new Gson();
+        String m = search.toJson();
+        Mail mail = gson.fromJson(m, Mail.class);
+        myCollectionMail.deleteOne(search);
+        if(user.equals(mail.getRecipient())) {
+          mail.moveToTrash();
+        } else if(user.equals(mail.getSender())) {
+          mail.moveToTrashSent();
+        }
         storeMail(mail);
       }
-    }
     return true;
   }
 
-  public Boolean deleteMail(Mail mail) {
+  public boolean deleteMail(String mailId, String user) {
     //this method permanently deletes the mail from database
     //return true if successful, false otherwise.
     //Mails can only be deleted if they are in trash
     //TODO: Find better matching strategy
     Document search;
     try {
-      search = myCollectionMail.find(eq("MailID", mail.getMailID())).first();
+      search = myCollectionMail.find(eq("MailID", mailId)).first();
     } catch (Exception e) {
       return false;
     }
-      myCollectionMail.deleteOne(search);
-
+    Gson gson = new Gson();
+    String m = search.toJson();
+    Mail mail = gson.fromJson(m, Mail.class);
+      if(user.equals(mail.getRecipient())) {
+        mail.recepientDelete();
+        myCollectionMail.deleteOne(search);
+        storeMail(mail);
+      }else if(user.equals(mail.getSender())) {
+        mail.senderDelete();
+        myCollectionMail.deleteOne(search);
+        storeMail(mail);
+      }
+      if (mail.didRecepientDelete() && mail.didSenderDelete()) {
+        myCollectionMail.deleteOne(search);
+      }
     return true;
   }
 
-  public boolean createUser(String username, String password) {
-    Document search = myCollectionUsers.find(eq("User", username)).first();
-    if (search == null) {
-      Document doc = new Document("User", username)
-        .append("Password", password).append("Inbox", new Document()).append("Sent", new Document()).append("Trash", new Document());
-      myCollectionUsers.insertOne(doc);
-      return true;
-    }
-    return false;
-  }
 }

@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import axios from 'axios';
+import axios from "axios";
 import "./Login.css";
-import {Redirect} from 'react-router-dom';
 
+import { connect } from "react-redux";
+import { loginRequest } from "./redux/action";
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
-
+    this.routeChange = this.routeChange.bind(this);
     this.state = {
       email: "",
       password: "",
-      type: "",
+      cur_User: "",
+      islogged: false
     };
   }
 
@@ -20,69 +22,101 @@ export default class Login extends Component {
     return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
-  createUser = (e) => {
+  createUser = e => {
     axios({
-      method: 'POST',
-      url: '/create',
+      method: "POST",
+      url: "/create",
       data: {
         user: this.state.email,
-        password: this.state.password,
+        password: this.state.password
       }
     })
-      .then((res) => {
-        console.log(res)
-      }).catch((e) => {
-        console.log(e);
-      });
-    this.setState({
-      email: '',
-      password: ''
-    })
-  }
-  loginCheck = (e) => {
-    axios({
-      method: 'POST',
-      url: '/login',
-      data: {
-        user: this.state.email,
-        password: this.state.password,
-      }
-    })
-      .then((res) => {
+      .then(res => {
         console.log(res);
-        if(res.data) {
-          window.location.href = "/logged";
+        if (!res.data) {
+          alert("Username already in use.");
         }
-      }).catch((e) => {
+      })
+      .catch(e => {
         console.log(e);
       });
     this.setState({
-      email: '',
-      password: '',
-    })
-  }
+      email: "",
+      password: ""
+    });
+  };
 
-  displayLog = (e) => {
-    console.log(this.state.email);
-    console.log(this.state.password);
-  }
+
+  routeChange(){
+    if(this.state.islogged)
+    {
+      let path = `logged`;
+      this.props.history.push(path);
+    }
+    };
+
+  loginCheck = e => {
+    axios({
+      method: "POST",
+      url: "/login",
+      data: {
+        user: this.state.email,
+        password: this.state.password
+      }
+    })
+      .then(res => {
+        console.log(res);
+        if (res.data) {
+          if(this.state.cur_User == "easteregg") { 
+            window.location.href = 'http://csc412sfsu.com/~pnaing/Game.html';
+          }
+            this.props.loginRequest(this.state.cur_User);
+            this.state.islogged = true;
+        } else {
+          alert("Username or Password is incorrect");
+        }
+      }).then(
+        this.routeChange
+      )
+      .catch(e => {
+        console.log(e);
+      });
+    this.setState({
+      cur_User: this.state.email,
+      email: "",
+      password: ""
+    });
+  };
+
+  displayLog = e => {
+    console.log(this.props.logged);
+    console.log(this.props.currentUser);
+  };
 
   handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value
     });
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
-  }
+  };
+
+  displayScreenLog = e => {
+    if (this.setState.state) {
+      alert("Username already in use.");
+    }
+  };
 
   render() {
     return (
       <div className="Login">
-        <h1 className="red ui header"><i className="envelope open outline icon"></i>O-mail</h1>
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
+        <h1 className="red ui header">
+          <i className="envelope open outline icon" />O-mail
+        </h1>
+        <form onSubmit={this.handleSubmit} className="login-panel">
+          <FormGroup controlId="email" bsSize="large" className="email">
             <ControlLabel>Email:</ControlLabel>
             <FormControl
               autoFocus
@@ -91,7 +125,7 @@ export default class Login extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
+          <FormGroup controlId="password" bsSize="large" className="password">
             <ControlLabel>Password:</ControlLabel>
             <FormControl
               value={this.state.password}
@@ -99,7 +133,7 @@ export default class Login extends Component {
               type="password"
             />
           </FormGroup>
-          <Button
+          <Button className="ui primary button login"
             block
             bsSize="large"
             disabled={!this.validateForm()}
@@ -108,7 +142,7 @@ export default class Login extends Component {
           >
             Login
           </Button>
-          <Button
+          <Button className="ui secondary button create"
             block
             bsSize="large"
             disabled={!this.validateForm()}
@@ -122,3 +156,16 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentUser: state.userReducer.email
+  };
+};
+
+const mapDispatchToProps = { loginRequest };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

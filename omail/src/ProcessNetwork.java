@@ -1,5 +1,4 @@
 import com.google.gson.*;
-
 import java.util.*;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
@@ -8,72 +7,111 @@ import java.time.LocalDateTime;
 //initializing the Database once.
 public class ProcessNetwork {
 
-    public static void sendMail(String mail, Database data) {
-       /*  //This method sends the mail and stores the mail in the database
-        //use storeMail method from Database
-        //returns mail data as a JSON
-        Gson ml = new Gson();
-        Mail send = ml.fromJson(mail, Mail.class);
-        data.storeMail(send);
-        /**/
-    }
 
-    public static void sendM(String from, String to, String mail, Database data){
-        Mail m = new Mail(from, to, mail);
+    public static boolean sendMail(String from, String to, String subject, String mail, Database data){
+        Mail m = new Mail(from, to, subject, mail);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         m.setTimeDate(dtf.format(now));
         String id = Long.toString(System.nanoTime());
         m.setMailID(id);
-        data.storeMail(m);
+        return data.storeMail(m);
+    }
+
+    public static ArrayList<String> showMail(String user, String box, Database d) {
+        switch (box){
+            case "Inbox" :
+                return showInboxMail(user, d);
+            case "Sent" :
+                return showSentMail(user, d);
+            case "Trash":
+                return showTrash(user, d);
+            default:
+                ArrayList<String> def = new ArrayList<String>();
+                return def;
+        }
     }
 
     public static ArrayList<String> showInboxMail(String user, Database data) {
         //this method returns all the mails in an user's inbox
         //use showMail(user, inbox) to get inbox mails.
         //this is a lists of mail data in JSON
-        ArrayList<String> List = data.showM(user, "Recipient");//Will also show trash
-        return List;
+        Gson gson = new Gson();
+        ArrayList<String> mailList = data.showMail(user, "Recipient");//Will also show trash
+        ArrayList<Mail> List1 = new ArrayList<>();
+        for (int i = 0; i < mailList.size(); i++) {
+            if (!(gson.fromJson(mailList.get(i), Mail.class).isTrash())) {
+                List1.add(gson.fromJson(mailList.get(i), Mail.class));
+            }
+        }
+        mailList.clear();
+        for (int i = List1.size() - 1; i >= 0; i--) {
+            mailList.add(gson.toJson(List1.get(i)));
+        }
+        return mailList;
     }
 
     public static ArrayList<String> showSentMail(String user, Database data) {
-        ArrayList<String> List = data.showM(user, "Sender");
-        return List;
+        //this method returns a JSON of all the mails in the sent box of a user
+        Gson gson = new Gson();
+        ArrayList<String> mailList = data.showMail(user, "Sender");
+        ArrayList<Mail> List1 = new ArrayList<>();
+        for (int i = 0; i < mailList.size(); i++) {
+            if (!(gson.fromJson(mailList.get(i), Mail.class).isTrashSend())) {
+                List1.add(gson.fromJson(mailList.get(i), Mail.class));
+            }
+        }
+        mailList.clear();
+        for (int i = List1.size() - 1; i >= 0; i--) {
+            mailList.add(gson.toJson(List1.get(i)));
+        }
+        return mailList;
     }
 
     public static ArrayList<String> showTrash(String user, Database data) {
         //similar to showInboxMail() method, but with the trashed mail.
-        //use showMail(user, trash) to get trashed mails.
-        ArrayList<String> List = data.showM(user, "Recipient"); //Will also show inbox
-        return List;
+        //use showMail(user, trash) to get trashed mails.\
+        Gson gson = new Gson();
+        ArrayList<String> mailList = data.showMail(user, "Recipient");
+        ArrayList<String> mailList2 = data.showMail(user, "Sender");
+        ArrayList<Mail> List1 = new ArrayList<>();
+        for (int i = 0; i < mailList.size(); i++) {
+            if ((gson.fromJson(mailList.get(i), Mail.class).isTrash()) && !(gson.fromJson(mailList.get(i), Mail.class).didRecepientDelete())) {
+                List1.add(gson.fromJson(mailList.get(i), Mail.class));
+            }
+        }
+        for (int i = 0; i < mailList2.size(); i++) {
+            if ((gson.fromJson(mailList2.get(i), Mail.class).isTrashSend()) && !(gson.fromJson(mailList2.get(i), Mail.class).didSenderDelete())) {
+                List1.add(gson.fromJson(mailList2.get(i), Mail.class));
+            }
+        }
+        mailList.clear();
+        for (int i = List1.size() - 1; i >= 0; i--) {
+            mailList.add(gson.toJson(List1.get(i)));
+        }
+        return mailList;
     }
 
-    public static void mailToTrash(Mail mail, Database data) {
+    public static void mailToTrash(String mailId, String user, Database data) {
         //this method moves a mail from the inbox or sent list to the trash list.
         //use moveMail(user, mail, trash) to move mail to trash.
-        data.moveMail(mail, "Trash");
+        data.moveMail(mailId, "Trash", user);
     }
 
-    public static void mailDeletion(String mail, Database data) {
+    public static void mailDeletion(String mailId, String user, Database data) {
         //this method is only usable from trashed mail
         //the deleted mail is permanently deleted.
-        Gson ml = new Gson();
-        Mail m = ml.fromJson(mail, Mail.class);
-        data.deleteMail(m);
+        data.deleteMail(mailId, user);
     }
 
-    public static void update() {
-        //method used to updte user's inbox
-        // make sure it is constantly running. Need to figure out how
-        // often it needs to run.
-    }
-
-    public static String createNewUser(String username, String password, Database data) {
+    public static boolean createNewUser(String username, String password, Database data) {
         password = maskPassword(password);
-        if(data.createUser(username, password)) {
-            return "okay";
-        }
-        return "Username already in use.";
+        return data.createUser(username, password);
+    }
+
+    public static boolean login(String user, String pass, Database data){
+        pass = maskPassword(pass);
+        return data.loginCheck(user, pass);
     }
 
     public static String maskPassword(String pass) {
@@ -89,30 +127,23 @@ public class ProcessNetwork {
             }
         }
         mask = odd + evn;
+        mask = moreMask(mask);
         return mask;
     }
 
-    public static String login(String user, String pass, Database data){
-        pass = maskPassword(pass);
-        if(pass.equals(maskPassword("game"))) {
-            return "game";
+    public static String moreMask(String pass) {
+        String mask = "";
+        String evn = "";
+        String odd = "";
+        for (int i = 0; i < pass.length(); i++) {
+            if (i % 2 == 0) {
+                evn += pass.charAt(i);
+            } else {
+                odd += pass.charAt(i);
+            }
         }
-        return Boolean.toString(data.loginCheck(user, pass));
-    }
-
-    public static ArrayList<String> showMail(String user, String box) {
-        Database d = Database.getInstance();
-        switch (box){
-            case "Inbox" :
-                return showInboxMail(user, d);
-            case "Sent" :
-                return showSentMail(user, d);
-            case "Trash":
-                return showTrash(user, d);
-                default:
-                    ArrayList<String> def = new ArrayList<String>();
-                    return def;
-        }
+        mask = evn + odd;
+        return mask;
     }
 
 }

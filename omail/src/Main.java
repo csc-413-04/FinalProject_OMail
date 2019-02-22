@@ -1,17 +1,8 @@
 import com.google.gson.*;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import spark.Request;
 import spark.Response;
-
-import javax.xml.crypto.Data;
-
 import static spark.Spark.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 
 public class Main {
@@ -45,8 +36,15 @@ public class Main {
 
         post("/mail", (req, res) -> {
             String body = req.body();
-            return ProcessNetwork.showMail(getString(body, "user"),getString(body,"Show"));
+            return ProcessNetwork.showMail(getString(body, "user"),getString(body,"Show"),d);
         });
+
+        post("/send", (req, res) -> {
+            String body = req.body();
+            ProcessNetwork.sendMail(getString(body, "from"),getString(body,"to"),getString(body,"subject"), getString(body,"msg"), d);
+            return "sent";
+        });
+
     }
 
 
